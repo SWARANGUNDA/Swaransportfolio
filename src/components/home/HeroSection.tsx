@@ -70,7 +70,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenResume }) => {
       id="hero"
       ref={sectionRef}
       onMouseMove={handleMouseMove}
-      className="relative min-h-screen w-full bg-midnight overflow-hidden flex flex-col justify-between pt-24 sm:pt-28 lg:pt-32 pb-6 select-none"
+      className="relative min-h-screen w-full bg-midnight overflow-x-clip flex flex-col justify-between pt-24 sm:pt-28 lg:pt-32 pb-4 select-none"
     >
       {/* LAYER 0: Atmospheric Ambient Lighting & Radial Gradients */}
       <div className="absolute inset-0 pointer-events-none z-0">

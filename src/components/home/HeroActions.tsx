@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Play, Mail, FileDown, Cpu, Layers, FlaskConical, Terminal } from 'lucide-react';
+import { ArrowUpRight, Play, Mail, FileDown, Cpu, Layers, FlaskConical } from 'lucide-react';
 import { ScrollIndicator } from './ScrollIndicator';
 import { fadeUpVariants } from '../../animations/heroVariants';
 
@@ -16,7 +16,7 @@ export const HeroActions: React.FC<HeroActionsProps> = ({
   onConnect,
 }) => {
   return (
-    <div className="space-y-6 sm:space-y-7 text-left z-[25] max-w-2xl">
+    <div className="space-y-4 sm:space-y-5 lg:space-y-6 text-left z-[25] max-w-2xl">
       {/* 1. Professional Eyebrow Badge */}
       <motion.div
         variants={fadeUpVariants}
@@ -31,9 +31,9 @@ export const HeroActions: React.FC<HeroActionsProps> = ({
         </span>
       </motion.div>
 
-      {/* 2. Main Hero Headline (Restored exact two-line typography) */}
-      <motion.div variants={fadeUpVariants} className="space-y-1.5 sm:space-y-2">
-        <h1 className="font-editorial text-3xl sm:text-4xl md:text-5xl lg:text-[44px] xl:text-[54px] font-black tracking-tight leading-[1.08] uppercase">
+      {/* 2. Main Hero Headline (Disciplined line-height and letter-spacing - Issue 07) */}
+      <motion.div variants={fadeUpVariants} className="space-y-1 sm:space-y-1.5">
+        <h1 className="font-editorial text-3xl sm:text-4xl md:text-5xl lg:text-[40px] xl:text-[50px] font-black tracking-tight leading-[1.06] uppercase">
           <span className="block text-slate-100">
             I DON'T JUST WRITE CODE.
           </span>
@@ -46,55 +46,55 @@ export const HeroActions: React.FC<HeroActionsProps> = ({
       {/* 3. Supporting Introduction (2-3 lines desktop) */}
       <motion.p
         variants={fadeUpVariants}
-        className="font-sans text-sm sm:text-base lg:text-lg text-slate-300 font-normal leading-relaxed max-w-xl"
+        className="font-sans text-sm sm:text-base text-slate-300 font-normal leading-relaxed max-w-xl"
       >
         I build intelligent systems, explore emerging technologies, and transform complex ideas into meaningful digital products.
       </motion.p>
 
-      {/* 4. Interactive CTA Action Buttons (Single-line whitespace-nowrap, equal heights, no nested lime rings) */}
+      {/* 4. Interactive CTA Action Buttons (Standardized 46px Height, font-mono bold text-xs, full pills - Issue 03) */}
       <motion.div
         variants={fadeUpVariants}
-        className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-3.5 pt-1 flex-wrap lg:flex-nowrap"
+        className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-3.5 pt-1 flex-wrap xl:flex-nowrap"
       >
-        {/* Primary CTA: Explore My Work */}
+        {/* Button 1: Explore My Work (Electric-Lime Filled Pill) */}
         <motion.button
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.97 }}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
           onClick={onExploreWork}
-          className="h-[46px] px-6 rounded-full bg-lime-brand text-dark-950 font-mono font-bold text-xs sm:text-sm flex items-center justify-center gap-2 hover:shadow-[0_0_24px_rgba(216,255,88,0.45)] transition-all cursor-pointer whitespace-nowrap group shrink-0"
+          className="h-[46px] px-5 sm:px-6 rounded-full bg-lime-brand text-dark-950 font-mono font-bold text-xs flex items-center justify-center gap-2 hover:shadow-[0_0_24px_rgba(216,255,88,0.45)] transition-all cursor-pointer whitespace-nowrap group shrink-0"
         >
           <Play className="w-3.5 h-3.5 fill-dark-950" />
           <span className="whitespace-nowrap">Explore My Work</span>
           <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </motion.button>
 
-        {/* Secondary CTA: Let's Connect (Clean dark transparent pill with thin cyan border, NO lime ring) */}
+        {/* Button 2: Let's Connect (Matching 46px dark glass pill with subtle cyan border) */}
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={onConnect}
-          className="h-[46px] px-5 sm:px-6 rounded-full bg-dark-900/70 backdrop-blur-md border border-cyan-500/30 text-white hover:text-cyan-300 hover:border-cyan-400 hover:bg-dark-800/90 font-mono text-xs sm:text-sm flex items-center justify-center gap-2 transition-all cursor-pointer whitespace-nowrap shrink-0 shadow-[0_0_15px_rgba(0,0,0,0.5)]"
+          className="h-[46px] px-5 sm:px-6 rounded-full bg-dark-900/80 backdrop-blur-md border border-cyan-500/35 text-white hover:text-cyan-300 hover:border-cyan-400 hover:bg-dark-800/90 font-mono font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer whitespace-nowrap shrink-0 shadow-[0_0_15px_rgba(0,0,0,0.4)]"
         >
           <Mail className="w-3.5 h-3.5 text-cyan-400" />
           <span className="whitespace-nowrap">Let's Connect</span>
         </motion.button>
 
-        {/* Tertiary CTA: Download Resume (Clean single-line horizontal action) */}
+        {/* Button 3: Download Resume (Matching 46px pill, same font & padding, cohesive family) */}
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={onOpenResume}
-          className="h-[46px] px-4 rounded-full text-slate-300 hover:text-cyan-300 hover:bg-white/5 border border-white/10 hover:border-cyan-500/30 font-mono text-xs flex items-center justify-center sm:justify-start gap-1.5 transition-all cursor-pointer whitespace-nowrap shrink-0"
+          className="h-[46px] px-5 sm:px-6 rounded-full bg-dark-900/80 backdrop-blur-md border border-cyan-500/35 text-white hover:text-cyan-300 hover:border-cyan-400 hover:bg-dark-800/90 font-mono font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer whitespace-nowrap shrink-0 shadow-[0_0_15px_rgba(0,0,0,0.4)]"
         >
           <FileDown className="w-3.5 h-3.5 text-cyan-400" />
           <span className="whitespace-nowrap">Download Resume</span>
         </motion.button>
       </motion.div>
 
-      {/* 5. Technology Highlights Grid (3 Columns) */}
+      {/* 5. Technology Highlights Grid (3 Columns with generous breathing room - Issue 07) */}
       <motion.div
         variants={fadeUpVariants}
-        className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-2 border-t border-white/10 max-w-xl"
+        className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 pt-3 border-t border-white/10 max-w-xl"
       >
         {/* Column 1: AI/ML */}
         <div className="flex items-start gap-2.5">
@@ -142,8 +142,8 @@ export const HeroActions: React.FC<HeroActionsProps> = ({
         </div>
       </motion.div>
 
-      {/* 6. Scroll Navigation Bar */}
-      <motion.div variants={fadeUpVariants} className="pt-0.5">
+      {/* 6. Scroll Navigation Bar (Elevated and separated cleanly) */}
+      <motion.div variants={fadeUpVariants} className="pt-1">
         <ScrollIndicator onScrollClick={onExploreWork} />
       </motion.div>
     </div>

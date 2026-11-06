@@ -29,16 +29,16 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
     // Scene & Camera
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
-      52,
+      54,
       container.clientWidth / container.clientHeight,
       0.1,
       1000
     );
-    // Camera positioned to give pronounced sweeping perspective across the bottom
-    camera.position.set(0, 3.6, 7.8);
-    camera.lookAt(0, -0.4, 0);
+    // Camera positioned to give pronounced sweeping 3D perspective across the bottom horizon
+    camera.position.set(0, 3.8, 7.6);
+    camera.lookAt(0, -0.35, 0);
 
-    // Renderer
+    // WebGL Renderer
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
       antialias: !isMobile,
@@ -48,15 +48,15 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
     container.appendChild(renderer.domElement);
 
-    // Particle Grid Dimensions (Flowing mesh with clear depth)
-    const cols = isMobile ? 50 : 80;
-    const rows = isMobile ? 26 : 42;
+    // Particle Grid Dimensions (Rich flowing terrain)
+    const cols = isMobile ? 54 : 88;
+    const rows = isMobile ? 28 : 46;
     const numParticles = cols * rows;
 
     const positions = new Float32Array(numParticles * 3);
     const colors = new Float32Array(numParticles * 3);
     const originalY = new Float32Array(numParticles);
-    const pulsePhases = new Float32Array(numParticles);
+    const baseColors = new Float32Array(numParticles * 3);
 
     // Vibrant design token colors
     const colorCyan = new THREE.Color('#36D9F5');
@@ -64,8 +64,8 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
     const colorLime = new THREE.Color('#D8FF58');
 
     // Populate initial grid coordinates
-    const spacingX = isMobile ? 0.36 : 0.28;
-    const spacingZ = isMobile ? 0.36 : 0.26;
+    const spacingX = isMobile ? 0.35 : 0.27;
+    const spacingZ = isMobile ? 0.35 : 0.25;
     const offsetX = (cols * spacingX) / 2;
     const offsetZ = (rows * spacingZ) / 2;
 
@@ -80,9 +80,8 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
         positions[idx * 3 + 1] = y;
         positions[idx * 3 + 2] = z;
         originalY[idx] = y;
-        pulsePhases[idx] = Math.random() * Math.PI * 2;
 
-        // Tri-color gradient interpolation: Cyan -> Emerald -> Lime crests
+        // Tri-color gradient: Cyan to Emerald with Lime accents
         const t = (i / cols + j / rows) * 0.5;
         const particleColor = new THREE.Color();
         if (t < 0.45) {
@@ -95,6 +94,10 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
         colors[idx * 3 + 1] = particleColor.g;
         colors[idx * 3 + 2] = particleColor.b;
 
+        baseColors[idx * 3] = particleColor.r;
+        baseColors[idx * 3 + 1] = particleColor.g;
+        baseColors[idx * 3 + 2] = particleColor.b;
+
         idx++;
       }
     }
@@ -103,7 +106,7 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
-    // High-resolution soft-radial particle texture
+    // High-resolution soft-radial particle texture with luminous core
     const canvas = document.createElement('canvas');
     canvas.width = 64;
     canvas.height = 64;
@@ -111,8 +114,8 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
     if (ctx) {
       const gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
       gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
-      gradient.addColorStop(0.3, 'rgba(255, 255, 255, 0.9)');
-      gradient.addColorStop(0.65, 'rgba(255, 255, 255, 0.35)');
+      gradient.addColorStop(0.28, 'rgba(255, 255, 255, 0.95)');
+      gradient.addColorStop(0.65, 'rgba(255, 255, 255, 0.4)');
       gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
       ctx.fillStyle = gradient;
       ctx.beginPath();
@@ -127,7 +130,7 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
       vertexColors: true,
       map: texture,
       transparent: true,
-      opacity: 0.88,
+      opacity: 0.92,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
     });
@@ -148,7 +151,9 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
 
       const elapsedTime = reducedMotion ? 1 : clock.getElapsedTime() * 0.75;
       const posAttr = geometry.attributes.position as THREE.BufferAttribute;
+      const colAttr = geometry.attributes.color as THREE.BufferAttribute;
       const posArray = posAttr.array as Float32Array;
+      const colArray = colAttr.array as Float32Array;
 
       // Smooth mouse follow
       mouseInfluenceX += (mouseTargetRef.current.x - mouseInfluenceX) * 0.045;
@@ -160,28 +165,43 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
           const x = posArray[pIdx * 3];
           const z = posArray[pIdx * 3 + 2];
 
-          // Compound procedural undulating waves
-          const wave1 = Math.sin(x * 0.42 + elapsedTime * 1.8) * 0.45;
-          const wave2 = Math.cos(z * 0.48 + elapsedTime * 1.4) * 0.35;
-          const wave3 = Math.sin((x + z) * 0.32 + elapsedTime * 2.1) * 0.25;
-
-          // Travelling light and height pulse
-          const travellingPulse = Math.sin(x * 0.25 - elapsedTime * 2.5) * 0.2;
+          // 1. Primary rolling swell
+          const swell = Math.sin(x * 0.38 + elapsedTime * 1.6) * 0.65;
+          // 2. Cross wave creating ridge peaks
+          const ridges = Math.cos(z * 0.44 + elapsedTime * 1.3) * 0.48;
+          // 3. Dynamic ripple
+          const ripple = Math.sin((x + z) * 0.3 + elapsedTime * 2.1) * 0.28;
+          // 4. Travelling luminous crest pulse (sweeping across horizon)
+          const crestPulse = Math.sin(x * 0.22 - elapsedTime * 2.6) * 0.25;
 
           // Interactive mouse wave lift
           const distToMouse = Math.hypot(
             x - mouseInfluenceX * 7.5,
             z - mouseInfluenceY * 3.8
           );
-          const mouseLift = Math.exp(-distToMouse * 0.42) * 0.55;
+          const mouseLift = Math.exp(-distToMouse * 0.42) * 0.6;
 
-          posArray[pIdx * 3 + 1] = wave1 + wave2 + wave3 + travellingPulse + mouseLift;
+          const totalHeight = swell + ridges + ripple + crestPulse + mouseLift;
+          posArray[pIdx * 3 + 1] = totalHeight;
+
+          // Luminous crest highlight: As vertices rise to their peaks, boost electric lime & cyan glow
+          const peakRatio = Math.max(0, Math.min(1, (totalHeight - 0.2) / 0.8));
+          if (peakRatio > 0) {
+            colArray[pIdx * 3] = baseColors[pIdx * 3] * (1 - peakRatio) + colorLime.r * peakRatio;
+            colArray[pIdx * 3 + 1] = baseColors[pIdx * 3 + 1] * (1 - peakRatio) + colorLime.g * peakRatio;
+            colArray[pIdx * 3 + 2] = baseColors[pIdx * 3 + 2] * (1 - peakRatio) + colorLime.b * peakRatio;
+          } else {
+            colArray[pIdx * 3] = baseColors[pIdx * 3];
+            colArray[pIdx * 3 + 1] = baseColors[pIdx * 3 + 1];
+            colArray[pIdx * 3 + 2] = baseColors[pIdx * 3 + 2];
+          }
 
           pIdx++;
         }
       }
 
       posAttr.needsUpdate = true;
+      colAttr.needsUpdate = true;
 
       // Subtle global tilt following mouse
       particleSystem.rotation.y = mouseInfluenceX * 0.07;
@@ -219,7 +239,7 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
   return (
     <div
       ref={containerRef}
-      className={`absolute inset-x-0 bottom-0 h-[240px] sm:h-[300px] lg:h-[360px] pointer-events-none select-none z-[2] overflow-hidden ${className}`}
+      className={`absolute inset-x-0 bottom-0 h-[260px] sm:h-[320px] lg:h-[380px] pointer-events-none select-none z-[2] overflow-hidden ${className}`}
     >
       {/* Top Gradient Fade to soften the wave as it reaches content */}
       <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-midnight via-midnight/80 to-transparent pointer-events-none z-10" />

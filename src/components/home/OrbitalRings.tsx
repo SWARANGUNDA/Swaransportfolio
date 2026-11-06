@@ -16,28 +16,28 @@ export const OrbitalRings: React.FC<OrbitalRingsProps> = ({
       }}
     >
       <svg
-        className="w-[126%] sm:w-[134%] h-[126%] sm:h-[134%] max-w-[720px] max-h-[720px] -translate-y-4"
+        className="w-[124%] sm:w-[132%] h-[124%] sm:h-[132%] max-w-[700px] max-h-[700px] -translate-y-2"
         viewBox="0 0 540 540"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
-          {/* Crisp Cyan to Emerald Ring Gradient */}
+          {/* 1. Crisp Cyan to Emerald Ring Gradient */}
           <linearGradient id="orbitGradCyanEmerald" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#36D9F5" stopOpacity="0.75" />
-            <stop offset="45%" stopColor="#D8FF58" stopOpacity="0.5" />
-            <stop offset="100%" stopColor="#35E6B0" stopOpacity="0.75" />
+            <stop offset="0%" stopColor="#36D9F5" stopOpacity="0.85" />
+            <stop offset="50%" stopColor="#D8FF58" stopOpacity="0.6" />
+            <stop offset="100%" stopColor="#35E6B0" stopOpacity="0.85" />
           </linearGradient>
 
-          {/* Golden Amber & Red Ambient Ring Gradient */}
-          <linearGradient id="orbitGradGoldRed" x1="100%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#F59E0B" stopOpacity="0.6" />
-            <stop offset="50%" stopColor="#EF4444" stopOpacity="0.45" />
-            <stop offset="100%" stopColor="#36D9F5" stopOpacity="0.35" />
+          {/* 2. Luminous Golden Amber & Lime Track Gradient (Crisp, visible orbit) */}
+          <linearGradient id="orbitGradGold" x1="100%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#FBBF24" stopOpacity="0.9" />
+            <stop offset="45%" stopColor="#F59E0B" stopOpacity="0.75" />
+            <stop offset="100%" stopColor="#D8FF58" stopOpacity="0.85" />
           </linearGradient>
 
           <filter id="orbitalGlow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="2.5" result="blur" />
+            <feGaussianBlur stdDeviation="3" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
@@ -52,9 +52,9 @@ export const OrbitalRings: React.FC<OrbitalRingsProps> = ({
             cy="270"
             r="240"
             stroke="url(#orbitGradCyanEmerald)"
-            strokeWidth="1.2"
-            strokeDasharray="8 16"
-            opacity="0.8"
+            strokeWidth="1.3"
+            strokeDasharray="8 14"
+            opacity="0.85"
           />
           {/* Glowing Satellite Node 1 (Top) */}
           <circle
@@ -76,43 +76,52 @@ export const OrbitalRings: React.FC<OrbitalRingsProps> = ({
           />
         </g>
 
-        {/* 2. Middle Fine Tech Ring (Rotates Counter-Clockwise) */}
+        {/* 2. Middle Golden-Amber Orbital Ring (Rotates Counter-Clockwise - Crisp & clearly visible track) */}
         <g className="animate-spin-reverse-slow origin-center">
           <circle
             cx="270"
             cy="270"
-            r="205"
-            stroke="url(#orbitGradGoldRed)"
-            strokeWidth="1"
-            strokeDasharray="3 10"
-            opacity="0.65"
+            r="215"
+            stroke="url(#orbitGradGold)"
+            strokeWidth="1.4"
+            strokeDasharray="4 8"
+            opacity="0.88"
           />
-          {/* Glowing Satellite Node 3 (Left) */}
+          {/* Glowing Satellite Node 3: Rides clearly along this crisp golden track */}
           <circle
-            cx="65"
+            cx="55"
             cy="270"
-            r="3"
-            fill="#F59E0B"
+            r="3.5"
+            fill="#FBBF24"
             filter="url(#orbitalGlow)"
           />
-          <circle cx="65" cy="270" r="1.2" fill="#FFFFFF" />
+          <circle cx="55" cy="270" r="1.5" fill="#FFFFFF" />
+
+          {/* Opposite Accent Node on the same track */}
+          <circle
+            cx="485"
+            cy="270"
+            r="2.5"
+            fill="#D8FF58"
+            filter="url(#orbitalGlow)"
+          />
         </g>
 
         {/* 3. Subtle Inner Guide Ring */}
         <circle
           cx="270"
           cy="270"
-          r="170"
-          stroke="rgba(54, 217, 245, 0.2)"
+          r="180"
+          stroke="rgba(54, 217, 245, 0.22)"
           strokeWidth="0.8"
           strokeDasharray="2 6"
         />
 
         {/* Technical Coordinate Tick Marks */}
-        <line x1="270" y1="8" x2="270" y2="22" stroke="#36D9F5" strokeWidth="1.5" opacity="0.7" />
-        <line x1="270" y1="518" x2="270" y2="532" stroke="#36D9F5" strokeWidth="1.5" opacity="0.7" />
-        <line x1="8" y1="270" x2="22" y2="270" stroke="#35E6B0" strokeWidth="1.5" opacity="0.7" />
-        <line x1="518" y1="270" x2="532" y2="270" stroke="#35E6B0" strokeWidth="1.5" opacity="0.7" />
+        <line x1="270" y1="10" x2="270" y2="24" stroke="#36D9F5" strokeWidth="1.5" opacity="0.75" />
+        <line x1="270" y1="516" x2="270" y2="530" stroke="#36D9F5" strokeWidth="1.5" opacity="0.75" />
+        <line x1="10" y1="270" x2="24" y2="270" stroke="#35E6B0" strokeWidth="1.5" opacity="0.75" />
+        <line x1="516" y1="270" x2="530" y2="270" stroke="#35E6B0" strokeWidth="1.5" opacity="0.75" />
       </svg>
     </div>
   );
