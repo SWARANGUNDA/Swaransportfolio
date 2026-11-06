@@ -133,6 +133,15 @@
   }
 }
 
+/* Glow helpers for electric lime and cyan typography */
+.text-glow-lime {
+  text-shadow: 0 0 25px rgba(216, 255, 88, 0.45);
+}
+
+.text-glow-cyan {
+  text-shadow: 0 0 25px rgba(54, 217, 245, 0.45);
+}
+
 /* Subtle Mouse Spotlight Overlay */
 .mouse-spotlight,
 .hero-mouse-spotlight {
