@@ -3,7 +3,7 @@ import { Preloader } from './components/loader/Preloader';
 import { CustomCursor } from './components/common/CustomCursor';
 import { ScrollProgress } from './components/common/ScrollProgress';
 import { Navbar } from './components/navigation/Navbar';
-import { HeroSection } from './components/hero/HeroSection';
+import { HeroSection } from './components/home/HeroSection';
 import { AboutSection } from './components/about/AboutSection';
 import { ProjectsSection } from './components/projects/ProjectsSection';
 import { SkillsSection } from './components/skills/SkillsSection';
@@ -71,7 +71,7 @@ export const App: React.FC = () => {
 
       {/* Main Content Layout */}
       <main className="relative bg-slate-50 dark:bg-dark-950 text-slate-900 dark:text-slate-100 min-h-screen transition-colors duration-300 selection:bg-cyan-400 selection:text-dark-950">
-        <HeroSection />
+        <HeroSection onOpenResume={() => setIsResumeOpen(true)} />
         <AboutSection />
         <ProjectsSection />
         <SkillsSection />

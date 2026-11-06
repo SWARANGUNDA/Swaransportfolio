@@ -8,6 +8,7 @@ import {
   Sun,
   Moon,
   Sparkles,
+  ArrowUpRight,
 } from 'lucide-react';
 import { portfolioData } from '../../data/portfolioData';
 import { useTheme } from '../../context/ThemeContext';
@@ -79,7 +80,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 sm:px-8 flex items-center justify-between">
-          {/* Logo / Monogram */}
+          {/* Logo / Monogram matching Reference Image */}
           <a
             href="#hero"
             onClick={(e) => {
@@ -88,21 +89,21 @@ export const Navbar: React.FC<NavbarProps> = ({
             }}
             className="flex items-center gap-3 group select-none"
           >
-            <div className="w-11 h-11 rounded-2xl bg-dark-900 border border-cyan-400/40 flex items-center justify-center font-editorial font-black text-xl text-cyan-300 shadow-[0_0_20px_rgba(0,245,255,0.3)] group-hover:border-cyan-300 group-hover:scale-105 transition-all">
-              <span className="text-gradient-cyan-lime">SG</span>
+            <div className="relative px-2.5 py-1 rounded bg-dark-900/90 border border-cyan-400/50 flex items-center justify-center font-mono font-extrabold text-base text-cyan-400 shadow-[0_0_15px_rgba(0,245,255,0.25)] group-hover:scale-105 transition-all">
+              <span className="text-cyan-400">SG</span>
             </div>
             <div className="hidden sm:block">
-              <span className="font-editorial text-sm font-bold text-white tracking-wider block">
+              <span className="font-editorial text-sm font-bold text-white tracking-wider block leading-tight">
                 SWARAN GUNDA
               </span>
               <span className="text-[10px] font-mono text-cyan-400 tracking-widest block font-medium">
-                AI/ML & FULL-STACK
+                AI/ML ENGINEER
               </span>
             </div>
           </a>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-1 p-1 rounded-full bg-dark-900/80 border border-white/10 backdrop-blur-xl px-3 font-mono text-xs shadow-inner">
+          <nav className="hidden lg:flex items-center gap-1 p-1 rounded-full bg-dark-900/80 border border-white/10 backdrop-blur-xl px-2.5 font-mono text-xs shadow-inner">
             {navLinks.map((link) => {
               const isActive = activeSection === link.href.substring(1);
               return (
@@ -111,7 +112,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   onClick={() => handleNavClick(link.href)}
                   className={`px-3.5 py-1.5 rounded-full transition-all relative ${
                     isActive
-                      ? 'text-dark-950 font-bold bg-gradient-to-r from-cyan-400 to-lime-brand shadow-[0_0_15px_rgba(0,245,255,0.4)]'
+                      ? 'text-dark-950 font-bold bg-lime-brand shadow-[0_0_15px_rgba(216,255,88,0.35)]'
                       : 'text-slate-300 hover:text-white'
                   }`}
                 >
@@ -121,42 +122,40 @@ export const Navbar: React.FC<NavbarProps> = ({
             })}
           </nav>
 
-          {/* Actions: Command Palette, Theme, Resume */}
+          {/* Actions: Search, Theme Toggle, Resume Pill */}
           <div className="hidden md:flex items-center gap-3">
-            {/* Command Palette Trigger */}
+            {/* Search Button */}
             <button
               onClick={onOpenCommandPalette}
-              className="px-3.5 py-2 rounded-xl bg-dark-900 border border-cyan-500/30 text-xs font-mono text-slate-300 hover:text-cyan-300 hover:border-cyan-400 flex items-center gap-2 shadow-[0_0_15px_rgba(0,245,255,0.1)] transition-all cursor-pointer"
-              title="Quick Search (Ctrl+K / Cmd+K)"
+              className="p-2.5 rounded-full bg-dark-900/80 border border-white/10 text-slate-300 hover:text-cyan-400 hover:border-cyan-400/40 transition-all cursor-pointer"
+              title="Search (⌘K)"
+              aria-label="Search"
             >
-              <Search className="w-3.5 h-3.5 text-cyan-400" />
-              <span>Search</span>
-              <kbd className="px-1.5 py-0.5 rounded bg-dark-950 text-[10px] text-slate-400 border border-white/10">
-                ⌘K
-              </kbd>
+              <Search className="w-4 h-4 text-cyan-400" />
             </button>
 
             {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
-              className="p-2.5 rounded-xl bg-slate-100 dark:bg-dark-900 border border-slate-300 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:text-cyan-500 hover:border-cyan-400/50 transition-all cursor-pointer shadow-sm active:scale-95"
+              className="p-2.5 rounded-full bg-dark-900/80 border border-white/10 text-slate-300 hover:text-amber-400 hover:border-amber-400/40 transition-all cursor-pointer active:scale-95"
               title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} mode`}
               aria-label="Toggle Theme"
             >
               {theme === 'dark' ? (
                 <Sun className="w-4 h-4 text-amber-400" />
               ) : (
-                <Moon className="w-4 h-4 text-cyan-600" />
+                <Moon className="w-4 h-4 text-cyan-400" />
               )}
             </button>
 
-            {/* Resume Button */}
+            {/* Resume Button matching Reference Image */}
             <button
               onClick={onOpenResume}
-              className="px-5 py-2 rounded-full bg-gradient-to-r from-cyan-500/20 via-violet-500/20 to-pink-500/20 hover:from-cyan-400 hover:to-lime-brand hover:text-dark-950 text-xs font-mono text-white border border-cyan-500/40 hover:border-transparent flex items-center gap-1.5 transition-all duration-300 font-bold shadow-[0_0_15px_rgba(0,245,255,0.2)] cursor-pointer"
+              className="px-4 py-2 rounded-full bg-dark-900/90 border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-dark-950 text-xs font-mono font-semibold flex items-center gap-1.5 transition-all shadow-[0_0_15px_rgba(0,245,255,0.2)] cursor-pointer"
             >
-              <FileText className="w-3.5 h-3.5 text-cyan-400 group-hover:text-dark-950" />
+              <FileText className="w-3.5 h-3.5" />
               <span>Resume</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
             </button>
           </div>
 

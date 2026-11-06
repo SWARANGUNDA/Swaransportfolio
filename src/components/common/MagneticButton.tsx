@@ -10,6 +10,7 @@ interface MagneticButtonProps {
   download?: boolean | string;
   target?: string;
   rel?: string;
+  strength?: number;
 }
 
 export const MagneticButton: React.FC<MagneticButtonProps> = ({
@@ -21,6 +22,7 @@ export const MagneticButton: React.FC<MagneticButtonProps> = ({
   download,
   target,
   rel,
+  strength = 0.25,
 }) => {
   const buttonRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -32,7 +34,7 @@ export const MagneticButton: React.FC<MagneticButtonProps> = ({
     const middleX = clientX - (left + width / 2);
     const middleY = clientY - (top + height / 2);
     // Subtle magnetic strength
-    setPosition({ x: middleX * 0.25, y: middleY * 0.25 });
+    setPosition({ x: middleX * strength, y: middleY * strength });
   };
 
   const handleMouseLeave = () => {

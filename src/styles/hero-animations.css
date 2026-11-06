@@ -1,0 +1,149 @@
+/* ========================================================
+   CINEMATIC HERO ANIMATION STYLES
+   Custom lighting sweeps, red halo, orbital rings & glows
+======================================================== */
+
+/* Crimson Red Ambient Backlight Halo */
+.portrait-red-halo {
+  background: radial-gradient(
+    circle at 50% 45%,
+    rgba(235, 30, 30, 0.95) 0%,
+    rgba(220, 20, 20, 0.75) 25%,
+    rgba(180, 10, 10, 0.45) 45%,
+    rgba(120, 0, 0, 0.15) 65%,
+    transparent 78%
+  );
+  filter: blur(28px);
+  will-change: transform, opacity;
+  animation: halo-pulse 5s ease-in-out infinite alternate;
+}
+
+@keyframes halo-pulse {
+  0% {
+    transform: scale(0.96);
+    opacity: 0.85;
+  }
+  100% {
+    transform: scale(1.04);
+    opacity: 1;
+  }
+}
+
+/* Subtle lighting sweep across portrait */
+.lighting-sweep {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 65%
+  );
+  background-size: 200% 100%;
+  pointer-events: none;
+  animation: sweep 8s ease-in-out infinite;
+}
+
+@keyframes sweep {
+  0%, 100% {
+    background-position: -200% 0;
+  }
+  50% {
+    background-position: 200% 0;
+  }
+}
+
+/* Orbital Rings rotation */
+.animate-spin-slow {
+  animation: spin-clockwise 45s linear infinite;
+}
+
+.animate-spin-reverse-slow {
+  animation: spin-counterclockwise 60s linear infinite;
+}
+
+@keyframes spin-clockwise {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-counterclockwise {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+/* Floating Technology Badges Independent Motions */
+.badge-float-1 {
+  animation: float-badge-1 6s ease-in-out infinite;
+}
+
+.badge-float-2 {
+  animation: float-badge-2 7.5s ease-in-out infinite;
+}
+
+.badge-float-3 {
+  animation: float-badge-3 6.8s ease-in-out infinite;
+}
+
+.badge-float-4 {
+  animation: float-badge-4 8.2s ease-in-out infinite;
+}
+
+@keyframes float-badge-1 {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(-1deg);
+  }
+}
+
+@keyframes float-badge-2 {
+  0%, 100% {
+    transform: translate(0px, 0px);
+  }
+  50% {
+    transform: translate(6px, -6px);
+  }
+}
+
+@keyframes float-badge-3 {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+@keyframes float-badge-4 {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-7px) rotate(1.5deg);
+  }
+}
+
+/* Subtle Mouse Spotlight Overlay */
+.mouse-spotlight,
+.hero-mouse-spotlight {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    650px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(54, 217, 245, 0.05),
+    rgba(53, 230, 176, 0.02) 40%,
+    transparent 75%
+  );
+  z-index: 1;
+}
