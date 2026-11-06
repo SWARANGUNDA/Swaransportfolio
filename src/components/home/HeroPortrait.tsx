@@ -13,15 +13,15 @@ export const HeroPortrait: React.FC<HeroPortraitProps> = ({ onHoverStateChange }
   const containerRef = useRef<HTMLDivElement>(null);
   const [parallaxOffset, setParallaxOffset] = useState({ x: 0, y: 0 });
 
-  // Spring physics for smooth cursor parallax
+  // Spring physics for smooth cursor parallax without jitter
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  const springX = useSpring(x, { stiffness: 120, damping: 18 });
-  const springY = useSpring(y, { stiffness: 120, damping: 18 });
+  const springX = useSpring(x, { stiffness: 100, damping: 20 });
+  const springY = useSpring(y, { stiffness: 100, damping: 20 });
 
-  const rotateX = useTransform(springY, [-0.5, 0.5], ['6deg', '-6deg']);
-  const rotateY = useTransform(springX, [-0.5, 0.5], ['-6deg', '6deg']);
+  const rotateX = useTransform(springY, [-0.5, 0.5], ['4deg', '-4deg']);
+  const rotateY = useTransform(springX, [-0.5, 0.5], ['-4deg', '4deg']);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (isTouchDevice() || !containerRef.current) return;
@@ -31,7 +31,7 @@ export const HeroPortrait: React.FC<HeroPortraitProps> = ({ onHoverStateChange }
 
     x.set(normX);
     y.set(normY);
-    setParallaxOffset({ x: normX * 24, y: normY * 24 });
+    setParallaxOffset({ x: normX * 18, y: normY * 18 });
   };
 
   const handleMouseEnter = () => {
@@ -51,54 +51,72 @@ export const HeroPortrait: React.FC<HeroPortraitProps> = ({ onHoverStateChange }
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="relative w-full max-w-[480px] lg:max-w-[540px] aspect-[4/5] mx-auto flex items-center justify-center select-none perspective-1200"
+      className="relative flex items-center justify-center select-none perspective-1200 z-[15]"
+      style={{
+        width: 'clamp(380px, 40vw, 620px)',
+        maxWidth: '100%',
+      }}
     >
-      {/* 1. Concentric Animated Orbital Rings */}
-      <OrbitalRings parallaxOffset={parallaxOffset} />
+      {/* LAYER 3: Vibrant Crimson Red Ambient Halo Backlight (Behind Portrait) */}
+      <div
+        className="portrait-red-halo absolute rounded-full pointer-events-none z-[10]"
+        style={{
+          width: 'clamp(340px, 35vw, 520px)',
+          height: 'clamp(340px, 35vw, 520px)',
+          top: '4%',
+          left: '50%',
+          transform: `translate(calc(-50% + ${parallaxOffset.x * -0.2}px), ${parallaxOffset.y * -0.2}px)`,
+        }}
+      />
 
-      {/* 2. Floating Technology Badges (4 Quadrants) */}
-      <FloatingBadges parallaxOffset={parallaxOffset} />
+      {/* LAYER 5a: Concentric Orbital Rings (Framing the head and torso) */}
+      <div
+        className="absolute inset-0 pointer-events-none z-[12] flex items-center justify-center"
+        style={{
+          transform: `translate(${parallaxOffset.x * 0.25}px, ${parallaxOffset.y * 0.25}px)`,
+        }}
+      >
+        <OrbitalRings parallaxOffset={parallaxOffset} />
+      </div>
 
-      {/* 3. Central 3D Portrait Composition */}
+      {/* LAYER 4: Authentic Portrait (No circular crop, complete hairstyle and both shoulders visible) */}
       <motion.div
         style={{
           rotateX,
           rotateY,
           transformStyle: 'preserve-3d',
         }}
-        className="relative w-[300px] sm:w-[350px] lg:w-[400px] aspect-square flex items-center justify-center z-10"
+        className="relative w-full flex items-center justify-center z-[15]"
       >
-        {/* CRITICAL: Vibrant Crimson Red Ambient Backlight Halo (From Reference Image) */}
-        <div
-          className="portrait-red-halo absolute -inset-6 sm:-inset-10 rounded-full pointer-events-none"
-          style={{
-            transform: `translate(${parallaxOffset.x * -0.2}px, ${parallaxOffset.y * -0.2}px)`,
-          }}
-        />
-
-        {/* Outer Circular Boundary with Subtle Glowing Edge */}
-        <div className="relative w-full h-full rounded-full overflow-hidden border border-red-500/30 shadow-[0_0_60px_rgba(235,30,30,0.35)] bg-gradient-to-b from-dark-950/20 to-dark-950 flex items-center justify-center">
-          {/* Swaran's Authentic Portrait Asset */}
+        <div className="relative w-full flex items-center justify-center">
           <motion.img
             src={portfolioData.personal.avatarUrl || '/swaran-avatar.png'}
             alt={portfolioData.personal.name}
-            initial={{ scale: 1.1, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full h-full object-cover object-top filter brightness-100 contrast-105"
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+            className="w-full h-auto object-contain object-top filter brightness-100 contrast-105 pointer-events-none drop-shadow-[0_20px_40px_rgba(0,0,0,0.85)]"
             style={{
-              transform: `translate(${parallaxOffset.x * 0.15}px, ${parallaxOffset.y * 0.15}px) scale(1.02)`,
+              maxHeight: 'min(78vh, 640px)',
+              WebkitMaskImage: 'linear-gradient(to bottom, black 82%, transparent 98%)',
+              maskImage: 'linear-gradient(to bottom, black 82%, transparent 98%)',
+              transform: `translate(${parallaxOffset.x * 0.12}px, ${parallaxOffset.y * 0.12}px)`,
             }}
           />
 
-          {/* Vignette Gradients: Blends shoulders & bottom into midnight background */}
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-midnight via-midnight/70 to-transparent pointer-events-none" />
-          <div className="absolute inset-0 bg-gradient-to-t from-dark-950/30 via-transparent to-transparent pointer-events-none" />
-
-          {/* Cinematic Lighting Sweep */}
-          <div className="lighting-sweep" />
+          {/* Subtle Specular Lighting Sweep */}
+          <div
+            className="lighting-sweep"
+            style={{
+              WebkitMaskImage: 'linear-gradient(to bottom, black 82%, transparent 98%)',
+              maskImage: 'linear-gradient(to bottom, black 82%, transparent 98%)',
+            }}
+          />
         </div>
       </motion.div>
+
+      {/* LAYER 5b: Floating Technology Badges (4 Quadrants surrounding the portrait) */}
+      <FloatingBadges parallaxOffset={parallaxOffset} />
     </div>
   );
 };

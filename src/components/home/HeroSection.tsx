@@ -60,7 +60,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenResume }) => {
     if (onOpenResume) {
       onOpenResume();
     } else {
-      // Fallback: trigger global resume modal or open PDF
       const resumeBtn = document.querySelector('[data-resume-trigger]') as HTMLButtonElement;
       if (resumeBtn) resumeBtn.click();
     }
@@ -71,9 +70,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenResume }) => {
       id="hero"
       ref={sectionRef}
       onMouseMove={handleMouseMove}
-      className="relative min-h-screen w-full bg-midnight overflow-hidden flex flex-col justify-between pt-24 sm:pt-28 lg:pt-32 pb-8 select-none"
+      className="relative min-h-screen w-full bg-midnight overflow-hidden flex flex-col justify-between pt-24 sm:pt-28 lg:pt-32 pb-6 select-none"
     >
-      {/* 1. Atmospheric Ambient Lighting & Radial Gradients */}
+      {/* LAYER 0: Atmospheric Ambient Lighting & Radial Gradients */}
       <div className="absolute inset-0 pointer-events-none z-0">
         {/* Subtle radial emerald & cyan glow */}
         <div className="absolute top-1/4 left-5 sm:left-20 w-[450px] sm:w-[600px] h-[450px] sm:h-[600px] bg-cyan-500/8 rounded-full blur-[160px]" />
@@ -84,19 +83,22 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenResume }) => {
         <div className="hero-mouse-spotlight absolute inset-0" />
       </div>
 
-      {/* 2. Interactive Canvas Particle Network */}
+      {/* LAYER 1: Interactive Canvas Particle Network */}
       <ParticleNetwork className="z-[1]" />
 
-      {/* 3. Main Hero Split Content Container */}
+      {/* LAYER 2: Cinematic 3D WebGL Digital Wave (Flows behind portrait in lower 20-25%) */}
+      <DigitalWave mousePos={mousePos} className="z-[2]" />
+
+      {/* LAYERS 3-6: Main Hero Asymmetric Balanced Split (Left ~52%, Right ~48%) */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 w-full flex-1 flex flex-col justify-center">
         <motion.div
           variants={heroContainerVariants}
           initial="hidden"
           animate="visible"
-          className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center py-6"
+          className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-8 py-4 sm:py-6 w-full"
         >
-          {/* Left Column: Headline, Pill Actions, Tech Highlights, Scroll Bar */}
-          <div className="lg:col-span-6 xl:col-span-7 z-20 order-2 lg:order-1">
+          {/* Left Column: ~52% (Headline, Pill Actions, Tech Highlights, Scroll Bar) */}
+          <div className="w-full lg:w-[52%] z-[25] order-2 lg:order-1 flex flex-col justify-center">
             <HeroActions
               onOpenResume={handleOpenResumeModal}
               onExploreWork={handleExploreWork}
@@ -104,15 +106,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenResume }) => {
             />
           </div>
 
-          {/* Right Column: Authentic Portrait with Red Halo, Orbital Rings & 4 Badges */}
-          <div className="lg:col-span-6 xl:col-span-5 z-20 order-1 lg:order-2 flex justify-center">
+          {/* Right Column: ~48% (Enlarged Portrait with Red Halo, Rings & Badges) */}
+          <div className="w-full lg:w-[48%] z-[15] order-1 lg:order-2 flex items-center justify-center lg:justify-end">
             <HeroPortrait />
           </div>
         </motion.div>
       </div>
-
-      {/* 4. Cinematic 3D WebGL Digital Wave (Bottom Edge-to-Edge) */}
-      <DigitalWave mousePos={mousePos} className="z-[2]" />
     </section>
   );
 };

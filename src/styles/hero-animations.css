@@ -6,25 +6,25 @@
 /* Crimson Red Ambient Backlight Halo */
 .portrait-red-halo {
   background: radial-gradient(
-    circle at 50% 45%,
-    rgba(235, 30, 30, 0.95) 0%,
-    rgba(220, 20, 20, 0.75) 25%,
-    rgba(180, 10, 10, 0.45) 45%,
-    rgba(120, 0, 0, 0.15) 65%,
-    transparent 78%
+    circle at 50% 42%,
+    rgba(235, 28, 36, 0.95) 0%,
+    rgba(225, 20, 25, 0.8) 28%,
+    rgba(180, 10, 15, 0.5) 48%,
+    rgba(120, 0, 10, 0.18) 68%,
+    transparent 80%
   );
-  filter: blur(28px);
+  filter: blur(36px);
   will-change: transform, opacity;
   animation: halo-pulse 5s ease-in-out infinite alternate;
 }
 
 @keyframes halo-pulse {
   0% {
-    transform: scale(0.96);
-    opacity: 0.85;
+    transform: scale(0.97);
+    opacity: 0.88;
   }
   100% {
-    transform: scale(1.04);
+    transform: scale(1.03);
     opacity: 1;
   }
 }
@@ -80,7 +80,7 @@
   }
 }
 
-/* Floating Technology Badges Independent Motions */
+/* Floating Technology Badges Subtle Independent Motions */
 .badge-float-1 {
   animation: float-badge-1 6s ease-in-out infinite;
 }
@@ -99,10 +99,10 @@
 
 @keyframes float-badge-1 {
   0%, 100% {
-    transform: translateY(0px) rotate(0deg);
+    transform: translateY(0px);
   }
   50% {
-    transform: translateY(-8px) rotate(-1deg);
+    transform: translateY(-4px);
   }
 }
 
@@ -111,7 +111,7 @@
     transform: translate(0px, 0px);
   }
   50% {
-    transform: translate(6px, -6px);
+    transform: translate(3px, -3px);
   }
 }
 
@@ -120,16 +120,16 @@
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(8px);
+    transform: translateY(4px);
   }
 }
 
 @keyframes float-badge-4 {
   0%, 100% {
-    transform: translateY(0px) rotate(0deg);
+    transform: translateY(0px);
   }
   50% {
-    transform: translateY(-7px) rotate(1.5deg);
+    transform: translateY(-3.5px);
   }
 }
 

@@ -29,13 +29,13 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
     // Scene & Camera
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
-      55,
+      50,
       container.clientWidth / container.clientHeight,
       0.1,
       1000
     );
-    camera.position.set(0, 4.2, 8.5);
-    camera.lookAt(0, -0.5, 0);
+    camera.position.set(0, 3.2, 7.8);
+    camera.lookAt(0, -0.7, 0);
 
     // Renderer
     const renderer = new THREE.WebGLRenderer({
@@ -47,9 +47,9 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
     container.appendChild(renderer.domElement);
 
-    // Particle Grid Dimensions
-    const cols = isMobile ? 50 : 90;
-    const rows = isMobile ? 30 : 55;
+    // Particle Grid Dimensions (Refined density: airy, cinematic landscape)
+    const cols = isMobile ? 38 : 68;
+    const rows = isMobile ? 22 : 36;
     const numParticles = cols * rows;
 
     const positions = new Float32Array(numParticles * 3);
@@ -62,8 +62,8 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
     const colorLime = new THREE.Color('#D8FF58');
 
     // Populate initial grid coordinates
-    const spacingX = isMobile ? 0.35 : 0.28;
-    const spacingZ = isMobile ? 0.35 : 0.26;
+    const spacingX = isMobile ? 0.38 : 0.30;
+    const spacingZ = isMobile ? 0.38 : 0.28;
     const offsetX = (cols * spacingX) / 2;
     const offsetZ = (rows * spacingZ) / 2;
 
@@ -100,36 +100,36 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
-    // Custom circular particle texture
+    // Particle texture
     const canvas = document.createElement('canvas');
-    canvas.width = 32;
-    canvas.height = 32;
+    canvas.width = 64;
+    canvas.height = 64;
     const ctx = canvas.getContext('2d');
     if (ctx) {
-      const gradient = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
-      gradient.addColorStop(0, 'rgba(255,255,255,1)');
-      gradient.addColorStop(0.3, 'rgba(54, 217, 245, 0.85)');
-      gradient.addColorStop(0.7, 'rgba(53, 230, 176, 0.35)');
-      gradient.addColorStop(1, 'rgba(0,0,0,0)');
+      const gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+      gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+      gradient.addColorStop(0.35, 'rgba(255, 255, 255, 0.85)');
+      gradient.addColorStop(0.7, 'rgba(255, 255, 255, 0.25)');
+      gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
       ctx.fillStyle = gradient;
       ctx.beginPath();
-      ctx.arc(16, 16, 16, 0, Math.PI * 2);
+      ctx.arc(32, 32, 32, 0, Math.PI * 2);
       ctx.fill();
     }
     const texture = new THREE.CanvasTexture(canvas);
 
     const material = new THREE.PointsMaterial({
-      size: isMobile ? 0.18 : 0.14,
+      size: isMobile ? 0.12 : 0.10,
       vertexColors: true,
       map: texture,
       transparent: true,
-      opacity: 0.85,
+      opacity: 0.65,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
     });
 
     const particleSystem = new THREE.Points(geometry, material);
-    particleSystem.position.y = -1.8;
+    particleSystem.position.y = -1.6;
     scene.add(particleSystem);
 
     // Animation Loop
@@ -142,13 +142,13 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
 
-      const elapsedTime = reducedMotion ? 1 : clock.getElapsedTime() * 0.75;
+      const elapsedTime = reducedMotion ? 1 : clock.getElapsedTime() * 0.7;
       const posAttr = geometry.attributes.position as THREE.BufferAttribute;
       const posArray = posAttr.array as Float32Array;
 
       // Smooth mouse follow
-      mouseInfluenceX += (mouseTargetRef.current.x - mouseInfluenceX) * 0.05;
-      mouseInfluenceY += (mouseTargetRef.current.y - mouseInfluenceY) * 0.05;
+      mouseInfluenceX += (mouseTargetRef.current.x - mouseInfluenceX) * 0.04;
+      mouseInfluenceY += (mouseTargetRef.current.y - mouseInfluenceY) * 0.04;
 
       let pIdx = 0;
       for (let i = 0; i < cols; i++) {
@@ -157,16 +157,16 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
           const z = posArray[pIdx * 3 + 2];
 
           // Compound procedural undulating waves
-          const wave1 = Math.sin(x * 0.45 + elapsedTime * 1.8) * 0.45;
-          const wave2 = Math.cos(z * 0.55 + elapsedTime * 1.4) * 0.35;
-          const wave3 = Math.sin((x + z) * 0.3 + elapsedTime * 2.2) * 0.25;
+          const wave1 = Math.sin(x * 0.4 + elapsedTime * 1.6) * 0.35;
+          const wave2 = Math.cos(z * 0.5 + elapsedTime * 1.3) * 0.25;
+          const wave3 = Math.sin((x + z) * 0.28 + elapsedTime * 1.9) * 0.18;
 
           // Interactive mouse wave lift
           const distToMouse = Math.hypot(
-            x - mouseInfluenceX * 8,
-            z - mouseInfluenceY * 4
+            x - mouseInfluenceX * 7,
+            z - mouseInfluenceY * 3.5
           );
-          const mouseLift = Math.exp(-distToMouse * 0.4) * 0.6;
+          const mouseLift = Math.exp(-distToMouse * 0.45) * 0.45;
 
           posArray[pIdx * 3 + 1] = wave1 + wave2 + wave3 + mouseLift;
 
@@ -176,9 +176,9 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
 
       posAttr.needsUpdate = true;
 
-      // Slight global tilt following mouse
-      particleSystem.rotation.y = mouseInfluenceX * 0.08;
-      particleSystem.rotation.x = mouseInfluenceY * 0.04;
+      // Subtle global tilt following mouse
+      particleSystem.rotation.y = mouseInfluenceX * 0.06;
+      particleSystem.rotation.x = mouseInfluenceY * 0.03;
 
       renderer.render(scene, camera);
     };
@@ -212,12 +212,12 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
   return (
     <div
       ref={containerRef}
-      className={`absolute inset-x-0 bottom-0 h-[380px] sm:h-[440px] lg:h-[500px] pointer-events-none select-none z-0 overflow-hidden ${className}`}
+      className={`absolute inset-x-0 bottom-0 h-[200px] sm:h-[240px] lg:h-[280px] pointer-events-none select-none z-[2] overflow-hidden ${className}`}
     >
-      {/* Top Gradient Fade to prevent wave from obscuring main text */}
-      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-midnight via-midnight/60 to-transparent pointer-events-none z-10" />
+      {/* Top Gradient Fade to soften the wave as it reaches content */}
+      <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-midnight via-midnight/80 to-transparent pointer-events-none z-10" />
       {/* Bottom Gradient Fade */}
-      <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-midnight to-transparent pointer-events-none z-10" />
+      <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-midnight to-transparent pointer-events-none z-10" />
     </div>
   );
 };

@@ -21,3 +21,4 @@ export const TIMING = {
   badgesDelay: 1.3,
   waveDelay: 1.6,
 };
+

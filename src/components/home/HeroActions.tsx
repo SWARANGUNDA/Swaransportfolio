@@ -17,59 +17,57 @@ export const HeroActions: React.FC<HeroActionsProps> = ({
   onConnect,
 }) => {
   return (
-    <div className="space-y-8 lg:space-y-10 text-left">
-      {/* 1. Main Supporting Headline (From Reference Image) */}
-      <motion.h1
+    <div className="space-y-6 sm:space-y-8 text-left z-[25]">
+      {/* 1. Main Supporting Headline (Refined to 2-3 lines on desktop with controlled max-w) */}
+      <motion.p
         variants={fadeUpVariants}
-        className="font-editorial text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-snug sm:leading-tight max-w-2xl"
+        className="font-editorial text-xl sm:text-2xl lg:text-[25px] xl:text-[27px] font-semibold text-slate-100 tracking-tight leading-[1.38] max-w-xl"
       >
         I build intelligent systems, explore emerging technologies, and transform complex ideas into meaningful digital products.
-      </motion.h1>
+      </motion.p>
 
-      {/* 2. Interactive CTA Action Buttons (From Reference Image) */}
+      {/* 2. Interactive CTA Action Buttons (Refined hierarchy & desktop horizontal alignment) */}
       <motion.div
         variants={fadeUpVariants}
-        className="flex flex-wrap items-center gap-3 sm:gap-4 pt-1"
+        className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 pt-1"
       >
         {/* Primary CTA: Explore My Work (Electric Lime Filled Pill) */}
-        <MagneticButton strength={0.25}>
+        <MagneticButton strength={0.2}>
           <button
             onClick={onExploreWork}
-            className="px-6 py-3.5 rounded-full bg-lime-brand text-dark-950 font-mono font-bold text-xs sm:text-sm flex items-center gap-2 hover:scale-105 hover:shadow-[0_0_25px_rgba(216,255,88,0.35)] transition-all cursor-pointer"
+            className="w-full sm:w-auto px-5 py-2.5 sm:px-6 sm:py-3 rounded-full bg-lime-brand text-dark-950 font-mono font-bold text-xs sm:text-sm flex items-center justify-center gap-2 hover:shadow-[0_0_24px_rgba(216,255,88,0.38)] hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer group"
           >
             <Play className="w-3.5 h-3.5 fill-dark-950" />
             <span>Explore My Work</span>
-            <ArrowUpRight className="w-4 h-4" />
+            <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </button>
         </MagneticButton>
 
-        {/* Secondary CTA: Let's Connect */}
-        <MagneticButton strength={0.2}>
+        {/* Secondary CTA: Let's Connect (Dark Transparent Pill with Subtle Border) */}
+        <MagneticButton strength={0.15}>
           <button
             onClick={onConnect}
-            className="px-5 py-3.5 rounded-full bg-dark-900/90 border border-white/15 text-slate-200 hover:text-white hover:border-cyan-400 font-mono text-xs sm:text-sm flex items-center gap-2 transition-all cursor-pointer"
+            className="w-full sm:w-auto px-4 py-2.5 sm:px-5 sm:py-3 rounded-full bg-dark-900/60 backdrop-blur-md border border-white/15 text-slate-200 hover:text-white hover:border-cyan-400/60 hover:bg-dark-800/80 font-mono text-xs sm:text-sm flex items-center justify-center gap-2 active:scale-[0.98] transition-all cursor-pointer"
           >
-            <Mail className="w-4 h-4 text-cyan-400" />
+            <Mail className="w-3.5 h-3.5 text-cyan-400" />
             <span>Let's Connect</span>
           </button>
         </MagneticButton>
 
-        {/* Tertiary CTA: Download Resume */}
-        <MagneticButton strength={0.2}>
-          <button
-            onClick={onOpenResume}
-            className="px-5 py-3.5 rounded-full bg-dark-900/90 border border-white/15 text-slate-200 hover:text-white hover:border-emerald-400 font-mono text-xs sm:text-sm flex items-center gap-2 transition-all cursor-pointer"
-          >
-            <FileDown className="w-4 h-4 text-emerald-400" />
-            <span>Download Resume</span>
-          </button>
-        </MagneticButton>
+        {/* Tertiary CTA: Download Resume (Subtle text-link / micro-button, no heavy border) */}
+        <button
+          onClick={onOpenResume}
+          className="w-full sm:w-auto px-3 py-2 text-slate-300 hover:text-emerald-400 font-mono text-xs flex items-center justify-center sm:justify-start gap-1.5 transition-colors cursor-pointer group hover:underline"
+        >
+          <FileDown className="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-400 transition-colors" />
+          <span>Download Resume</span>
+        </button>
       </motion.div>
 
-      {/* 3. Technology Highlights Grid (3 Columns From Reference Image) */}
+      {/* 3. Technology Highlights Grid (3 Columns) */}
       <motion.div
         variants={fadeUpVariants}
-        className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 border-t border-white/10 max-w-2xl"
+        className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 pt-2 border-t border-white/10 max-w-xl"
       >
         {/* Column 1: AI/ML */}
         <div className="flex items-start gap-3">
@@ -111,14 +109,14 @@ export const HeroActions: React.FC<HeroActionsProps> = ({
               Research
             </h4>
             <p className="text-[11px] font-mono text-slate-400">
-              Healthcare AI · Cybersecurity
+              Healthcare AI · Security
             </p>
           </div>
         </div>
       </motion.div>
 
       {/* 4. Scroll Navigation Bar */}
-      <motion.div variants={fadeUpVariants} className="pt-2">
+      <motion.div variants={fadeUpVariants} className="pt-1">
         <ScrollIndicator onScrollClick={onExploreWork} />
       </motion.div>
     </div>

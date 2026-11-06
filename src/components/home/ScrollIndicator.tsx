@@ -69,3 +69,4 @@ export const ScrollIndicator: React.FC<ScrollIndicatorProps> = ({ onScrollClick 
     </div>
   );
 };
+

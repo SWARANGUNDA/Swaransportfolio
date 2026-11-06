@@ -39,32 +39,65 @@ export const Navbar: React.FC<NavbarProps> = ({
   ];
 
   useEffect(() => {
+    // Synchronize initial active section with current URL hash
+    if (window.location.hash) {
+      const hashId = window.location.hash.substring(1);
+      if (navLinks.some((l) => l.href === window.location.hash)) {
+        setActiveSection(hashId);
+      }
+    }
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
+      setIsScrolled(window.scrollY > 30);
 
-      const sections = navLinks.map((l) => l.href.substring(1));
-      const scrollPosition = window.scrollY + 200;
+      const sectionIds = navLinks.map((l) => l.href.substring(1));
+      const viewportReadingLine = window.innerHeight * 0.35; // 35% from top of viewport
 
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(section);
-            break;
+      let visibleSection = 'hero';
+
+      // If user is at the top of the page, lock to hero
+      if (window.scrollY < 120) {
+        visibleSection = 'hero';
+      } else {
+        // Use getBoundingClientRect for absolute viewport accuracy
+        for (const id of sectionIds) {
+          const el = document.getElementById(id);
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top <= viewportReadingLine && rect.bottom > viewportReadingLine) {
+              visibleSection = id;
+              break;
+            }
           }
         }
       }
+
+      setActiveSection((prev) => {
+        if (prev !== visibleSection) {
+          // Synchronize URL hash cleanly without reload or disruptive jumps
+          const targetHash = `#${visibleSection}`;
+          if (window.location.hash !== targetHash) {
+            window.history.replaceState(null, '', targetHash);
+          }
+          return visibleSection;
+        }
+        return prev;
+      });
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial check on mount
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleNavClick = (href: string) => {
     setIsMobileMenuOpen(false);
-    const el = document.querySelector(href);
+    const targetId = href.substring(1);
+    setActiveSection(targetId);
+    window.history.replaceState(null, '', href);
+
+    const el = document.getElementById(targetId);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
