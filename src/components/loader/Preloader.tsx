@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { IntroReactiveBackground } from './IntroReactiveBackground';
 
 interface PreloaderProps {
   onComplete: () => void;
@@ -14,7 +15,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
       'INITIALIZING WEBGL 3D ENGINES',
       'LOADING NEURAL CONSTELLATION MESH',
       'CALIBRATING MULTI-CHROMATIC SPACES',
-      'PREPARING ARCHITECTURAL SHOWCASE'
+      'PREPARING ARCHITECTURAL SHOWCASE',
     ];
 
     const interval = setInterval(() => {
@@ -44,10 +45,14 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
         exit={{ opacity: 0, y: -40, transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1] } }}
         className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-dark-950 text-slate-100 select-none overflow-hidden"
       >
-        {/* Subtle multi-color background glows */}
-        <div className="absolute w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none" />
-        <div className="absolute w-[450px] h-[450px] bg-pink-500/10 rounded-full blur-[140px] pointer-events-none" />
+        {/* Cinematic Mouse-Reactive Interactive Background */}
+        <IntroReactiveBackground />
 
+        {/* Ambient Atmospheric Backdrop Glows */}
+        <div className="absolute w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none z-[1]" />
+        <div className="absolute w-[450px] h-[450px] bg-emerald-500/8 rounded-full blur-[140px] pointer-events-none z-[1]" />
+
+        {/* Foreground Content (Stable & 100% Readable) */}
         <div className="relative z-10 flex flex-col items-center max-w-sm px-6 w-full">
           {/* Animated Monogram SG with Multi-Color Glow */}
           <div className="relative mb-8">
@@ -85,7 +90,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
 
             <div className="h-1.5 w-full bg-dark-800 rounded-full overflow-hidden border border-white/10 p-0.5">
               <motion.div
-                className="h-full bg-gradient-to-r from-cyan-400 via-lime-brand via-pink-500 to-violet-500 rounded-full shadow-[0_0_15px_rgba(0,245,255,0.8)]"
+                className="h-full bg-gradient-to-r from-cyan-400 via-lime-brand to-emerald-400 rounded-full shadow-[0_0_15px_rgba(0,245,255,0.8)]"
                 style={{ width: `${progress}%` }}
                 transition={{ ease: 'easeOut' }}
               />
@@ -94,7 +99,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
         </div>
 
         {/* Bottom subtle agency signature */}
-        <div className="absolute bottom-6 text-[11px] font-mono text-slate-400 tracking-widest uppercase">
+        <div className="absolute bottom-6 text-[11px] font-mono text-slate-400 tracking-widest uppercase z-10">
           KMIT · B.Tech CSE · 8.7 CGPA · HYDERABAD
         </div>
       </motion.div>
