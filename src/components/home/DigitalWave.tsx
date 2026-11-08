@@ -46,6 +46,10 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
     });
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
+    renderer.domElement.style.position = 'absolute';
+    renderer.domElement.style.inset = '0';
+    renderer.domElement.style.zIndex = '1';
+    renderer.domElement.style.pointerEvents = 'none';
     container.appendChild(renderer.domElement);
 
     // Particle Grid Dimensions: Dense high-definition field for multiple continuous wave ribbons
@@ -249,14 +253,19 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
   return (
     <div
       ref={containerRef}
-      className={`absolute inset-x-0 bottom-0 h-[300px] sm:h-[360px] lg:h-[430px] pointer-events-none select-none z-[2] overflow-hidden ${className}`}
+      className={`absolute inset-x-0 bottom-0 h-[260px] sm:h-[300px] lg:h-[340px] pointer-events-none select-none z-[2] overflow-hidden ${className}`}
     >
-      {/* Top Gradient Fade to soften the wave as it reaches content */}
-      <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-midnight via-midnight/50 to-transparent pointer-events-none z-10" />
-      {/* Left Subtle Edge Fade */}
-      <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-midnight/50 to-transparent pointer-events-none z-10" />
-      {/* Bottom Gradient Fade */}
-      <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-midnight to-transparent pointer-events-none z-10" />
+      {/* 1. Authentic Reference Wave Ribbon Layer (Exact match from uploaded image) */}
+      <img
+        src="/cinematic-digital-wave.png"
+        alt="Cinematic Digital Wave"
+        className="absolute inset-x-0 bottom-0 w-full h-full object-cover object-bottom pointer-events-none select-none z-0 opacity-95 filter brightness-110"
+      />
+
+      {/* 2. Top Gradient Fade to soften the wave as it reaches content */}
+      <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-midnight via-midnight/40 to-transparent pointer-events-none z-10" />
+      {/* 3. Bottom Gradient Fade */}
+      <div className="absolute inset-x-0 bottom-0 h-6 bg-gradient-to-t from-midnight to-transparent pointer-events-none z-10" />
     </div>
   );
 };
