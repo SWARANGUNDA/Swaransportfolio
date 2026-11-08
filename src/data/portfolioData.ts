@@ -4,7 +4,7 @@ export const portfolioData: PortfolioConfig = {
   personal: {
     name: 'Swaran Gunda',
     initials: 'SG',
-    avatarUrl: '/swaran-avatar.png',
+    avatarUrl: '/swaran-transparent.png',
     titles: [
       'AI/ML Engineer',
       'Full-Stack Developer',

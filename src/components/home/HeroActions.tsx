@@ -94,19 +94,19 @@ export const HeroActions: React.FC<HeroActionsProps> = ({
       {/* 5. Technology Highlights Grid (Protected with glass backing so wave dots never obscure text) */}
       <motion.div
         variants={fadeUpVariants}
-        className="bg-midnight/70 backdrop-blur-md rounded-2xl p-3 sm:p-3.5 border border-white/5 max-w-xl"
+        className="bg-midnight/90 backdrop-blur-xl rounded-2xl p-3.5 sm:p-4 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.7)] max-w-xl"
       >
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-5">
           {/* Column 1: AI/ML */}
           <div className="flex items-start gap-2.5">
-            <div className="p-1.5 rounded-lg bg-lime-brand/10 border border-lime-brand/25 text-lime-brand shrink-0">
+            <div className="p-2 rounded-full bg-lime-brand/10 border border-lime-brand/30 text-lime-brand shrink-0">
               <Cpu className="w-4 h-4" />
             </div>
             <div>
               <h4 className="text-xs sm:text-sm font-bold text-white font-editorial">
                 AI/ML
               </h4>
-              <p className="text-[11px] font-mono text-slate-300 whitespace-nowrap font-medium">
+              <p className="text-[11px] font-mono text-slate-200 whitespace-nowrap font-medium">
                 Modeling · GenAI · NLP
               </p>
             </div>
@@ -114,14 +114,14 @@ export const HeroActions: React.FC<HeroActionsProps> = ({
 
           {/* Column 2: Full-Stack */}
           <div className="flex items-start gap-2.5">
-            <div className="p-1.5 rounded-lg bg-cyan-400/10 border border-cyan-400/25 text-cyan-400 shrink-0">
+            <div className="p-2 rounded-full bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 shrink-0">
               <Layers className="w-4 h-4" />
             </div>
             <div>
               <h4 className="text-xs sm:text-sm font-bold text-white font-editorial">
                 Full-Stack
               </h4>
-              <p className="text-[11px] font-mono text-slate-300 whitespace-nowrap font-medium">
+              <p className="text-[11px] font-mono text-slate-200 whitespace-nowrap font-medium">
                 React · Node · FastAPI
               </p>
             </div>
@@ -129,14 +129,14 @@ export const HeroActions: React.FC<HeroActionsProps> = ({
 
           {/* Column 3: Research */}
           <div className="flex items-start gap-2.5">
-            <div className="p-1.5 rounded-lg bg-emerald-400/10 border border-emerald-400/25 text-emerald-400 shrink-0">
+            <div className="p-2 rounded-full bg-emerald-400/10 border border-emerald-400/30 text-emerald-400 shrink-0">
               <FlaskConical className="w-4 h-4" />
             </div>
             <div>
               <h4 className="text-xs sm:text-sm font-bold text-white font-editorial">
                 Research
               </h4>
-              <p className="text-[11px] font-mono text-slate-300 whitespace-nowrap font-medium">
+              <p className="text-[11px] font-mono text-slate-200 whitespace-nowrap font-medium">
                 Healthcare AI · Security
               </p>
             </div>

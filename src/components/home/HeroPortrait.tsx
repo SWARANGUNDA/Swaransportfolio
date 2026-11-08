@@ -51,20 +51,20 @@ export const HeroPortrait: React.FC<HeroPortraitProps> = ({ onHoverStateChange }
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      // Lifted upward by -translate-y-8 to -translate-y-12 so shoulders and chest are framed above the wave
-      className="relative flex items-center justify-center select-none perspective-1200 z-[15] -translate-y-6 sm:-translate-y-8 lg:-translate-y-12"
+      // Lifted upward slightly so shoulders and chest are framed above the wave
+      className="relative flex items-center justify-center select-none perspective-1200 z-[15] -translate-y-4 sm:-translate-y-6 lg:-translate-y-8"
       style={{
-        width: 'clamp(360px, 38vw, 560px)',
+        width: 'clamp(400px, 40vw, 600px)',
         maxWidth: '100%',
       }}
     >
-      {/* LAYER 3: Symmetrical Circular Crimson Ambient Halo (Centered directly behind the head - No rightward smear) */}
+      {/* LAYER 3: Symmetrical Circular Crimson Ambient Halo (Centered directly behind the head) */}
       <div
         className="portrait-red-halo absolute rounded-full pointer-events-none z-[10]"
         style={{
-          width: 'clamp(340px, 35vw, 470px)',
-          height: 'clamp(340px, 35vw, 470px)',
-          top: '30%',
+          width: 'clamp(360px, 36vw, 480px)',
+          height: 'clamp(360px, 36vw, 480px)',
+          top: '34%',
           left: '50%',
           transform: `translate(calc(-50% + ${parallaxOffset.x * -0.2}px), calc(-50% + ${parallaxOffset.y * -0.2}px))`,
         }}
@@ -80,7 +80,7 @@ export const HeroPortrait: React.FC<HeroPortraitProps> = ({ onHoverStateChange }
         <OrbitalRings parallaxOffset={parallaxOffset} />
       </div>
 
-      {/* LAYER 5: Authentic Portrait with Elliptical Radial Feathering (Full shoulders, chest & suit visible) */}
+      {/* LAYER 5: Authentic Portrait with Seamless Zero-Artifact Background */}
       <motion.div
         style={{
           rotateX,
@@ -91,19 +91,19 @@ export const HeroPortrait: React.FC<HeroPortraitProps> = ({ onHoverStateChange }
       >
         <div className="relative w-full flex items-center justify-center">
           <motion.img
-            src={portfolioData.personal.avatarUrl || '/swaran-avatar.png'}
+            src={portfolioData.personal.avatarUrl || '/swaran-transparent.png'}
             alt={portfolioData.personal.name}
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
             className="w-full h-auto object-contain object-top filter brightness-100 contrast-105 pointer-events-none"
             style={{
-              maxHeight: 'min(74vh, 600px)',
-              // Elliptical radial mask preserves 100% of hair, face, neck, collar, both broad shoulders and suit jacket
+              maxHeight: 'min(76vh, 620px)',
+              // Clean linear fade at the bottom allows suit to integrate naturally into digital wave
               WebkitMaskImage:
-                'radial-gradient(ellipse 68% 74% at 50% 38%, black 58%, rgba(0, 0, 0, 0.9) 68%, rgba(0, 0, 0, 0.2) 78%, transparent 84%)',
+                'linear-gradient(to bottom, black 80%, rgba(0, 0, 0, 0.7) 90%, transparent 100%)',
               maskImage:
-                'radial-gradient(ellipse 68% 74% at 50% 38%, black 58%, rgba(0, 0, 0, 0.9) 68%, rgba(0, 0, 0, 0.2) 78%, transparent 84%)',
+                'linear-gradient(to bottom, black 80%, rgba(0, 0, 0, 0.7) 90%, transparent 100%)',
               transform: `translate(${parallaxOffset.x * 0.12}px, ${parallaxOffset.y * 0.12}px)`,
             }}
           />
@@ -113,9 +113,9 @@ export const HeroPortrait: React.FC<HeroPortraitProps> = ({ onHoverStateChange }
             className="lighting-sweep"
             style={{
               WebkitMaskImage:
-                'radial-gradient(ellipse 68% 74% at 50% 38%, black 58%, rgba(0, 0, 0, 0.9) 68%, rgba(0, 0, 0, 0.2) 78%, transparent 84%)',
+                'linear-gradient(to bottom, black 80%, rgba(0, 0, 0, 0.7) 90%, transparent 100%)',
               maskImage:
-                'radial-gradient(ellipse 68% 74% at 50% 38%, black 58%, rgba(0, 0, 0, 0.9) 68%, rgba(0, 0, 0, 0.2) 78%, transparent 84%)',
+                'linear-gradient(to bottom, black 80%, rgba(0, 0, 0, 0.7) 90%, transparent 100%)',
             }}
           />
         </div>

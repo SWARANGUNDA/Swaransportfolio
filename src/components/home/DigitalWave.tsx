@@ -239,14 +239,14 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
   return (
     <div
       ref={containerRef}
-      className={`absolute inset-x-0 bottom-0 h-[260px] sm:h-[320px] lg:h-[380px] pointer-events-none select-none z-[2] overflow-hidden ${className}`}
+      className={`absolute inset-x-0 bottom-0 h-[280px] sm:h-[340px] lg:h-[400px] pointer-events-none select-none z-[2] overflow-hidden ${className}`}
     >
       {/* Top Gradient Fade to soften the wave as it reaches content */}
-      <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-midnight via-midnight/80 to-transparent pointer-events-none z-10" />
-      {/* Left Horizontal Gradient Fade to protect left text readability */}
-      <div className="absolute inset-y-0 left-0 w-2/5 sm:w-1/3 bg-gradient-to-r from-midnight via-midnight/60 to-transparent pointer-events-none z-10" />
+      <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-midnight via-midnight/60 to-transparent pointer-events-none z-10" />
+      {/* Left Subtle Edge Fade */}
+      <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-midnight/60 to-transparent pointer-events-none z-10" />
       {/* Bottom Gradient Fade */}
-      <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-midnight to-transparent pointer-events-none z-10" />
+      <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-midnight to-transparent pointer-events-none z-10" />
     </div>
   );
 };

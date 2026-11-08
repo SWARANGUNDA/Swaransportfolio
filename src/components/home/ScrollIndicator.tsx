@@ -22,15 +22,15 @@ export const ScrollIndicator: React.FC<ScrollIndicatorProps> = ({ onScrollClick 
       {/* Interactive Mouse Indicator Button */}
       <button
         onClick={handleClick}
-        className="flex items-center gap-2 text-slate-400 hover:text-lime-brand transition-colors group cursor-pointer"
+        className="flex items-center gap-2.5 text-slate-300 hover:text-lime-brand transition-colors group cursor-pointer"
         aria-label="Scroll to exploration"
       >
-        <span className="text-[10px] tracking-widest text-slate-400 group-hover:text-lime-brand transition-colors uppercase font-semibold">
+        <span className="text-[10px] tracking-widest text-slate-300 group-hover:text-lime-brand transition-colors uppercase font-semibold">
           SCROLL
         </span>
 
         {/* Animated Mouse Icon */}
-        <div className="w-4 h-6 rounded-full border border-slate-500 group-hover:border-lime-brand flex justify-center p-1 transition-colors">
+        <div className="w-4 h-6 rounded-full border border-slate-400 group-hover:border-lime-brand flex justify-center p-1 transition-colors">
           <motion.div
             animate={{ y: [0, 5, 0] }}
             transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
@@ -49,20 +49,20 @@ export const ScrollIndicator: React.FC<ScrollIndicatorProps> = ({ onScrollClick 
       </div>
 
       {/* Navigation Breadcrumbs */}
-      <div className="flex items-center gap-2 text-[10px] text-slate-400 font-mono tracking-widest uppercase">
-        <a href="#projects" className="hover:text-cyan-400 transition-colors">
+      <div className="flex items-center gap-2 text-[10px] text-slate-300 font-mono font-medium tracking-widest uppercase">
+        <a href="#projects" className="hover:text-cyan-300 transition-colors">
           EXPLORE
         </a>
-        <span className="text-slate-600">/</span>
-        <a href="#projects" className="hover:text-cyan-400 transition-colors">
+        <span className="text-slate-500">/</span>
+        <a href="#projects" className="hover:text-cyan-300 transition-colors">
           PROJECTS
         </a>
-        <span className="text-slate-600">/</span>
-        <a href="#research" className="hover:text-cyan-400 transition-colors">
+        <span className="text-slate-500">/</span>
+        <a href="#research" className="hover:text-cyan-300 transition-colors">
           RESEARCH
         </a>
-        <span className="text-slate-600">/</span>
-        <a href="#journey" className="hover:text-cyan-400 transition-colors">
+        <span className="text-slate-500">/</span>
+        <a href="#journey" className="hover:text-cyan-300 transition-colors">
           JOURNEY
         </a>
       </div>
