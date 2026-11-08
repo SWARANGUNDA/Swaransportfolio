@@ -58,23 +58,25 @@ export const HeroPortrait: React.FC<HeroPortraitProps> = ({ onHoverStateChange }
         maxWidth: '100%',
       }}
     >
-      {/* LAYER 3: Symmetrical Circular Crimson Ambient Halo (Centered directly behind the head) */}
+      {/* LAYER 3: Symmetrical Circular Crimson Ambient Halo (Directly behind head optical center) */}
       <div
         className="portrait-red-halo absolute rounded-full pointer-events-none z-[10]"
         style={{
-          width: 'clamp(440px, 44vw, 580px)',
-          height: 'clamp(440px, 44vw, 580px)',
-          top: '36%',
+          width: 'clamp(460px, 46vw, 620px)',
+          height: 'clamp(460px, 46vw, 620px)',
+          top: '28%',
           left: '50%',
           transform: `translate(calc(-50% + ${parallaxOffset.x * -0.2}px), calc(-50% + ${parallaxOffset.y * -0.2}px))`,
         }}
       />
 
-      {/* LAYER 4: SVG Concentric Orbital Rings (Visible outside portrait silhouette) */}
+      {/* LAYER 4: SVG Concentric Orbital Rings (Directly centered around head) */}
       <div
-        className="absolute inset-0 pointer-events-none z-[12] flex items-center justify-center -translate-y-4 sm:-translate-y-6"
+        className="absolute pointer-events-none z-[12] flex items-center justify-center"
         style={{
-          transform: `translate(${parallaxOffset.x * 0.25}px, ${parallaxOffset.y * 0.25}px)`,
+          top: '28%',
+          left: '50%',
+          transform: `translate(calc(-50% + ${parallaxOffset.x * 0.25}px), calc(-50% + ${parallaxOffset.y * 0.25}px))`,
         }}
       >
         <OrbitalRings parallaxOffset={parallaxOffset} />

@@ -9,14 +9,14 @@ export const OrbitalRings: React.FC<OrbitalRingsProps> = ({
 }) => {
   return (
     <div
-      className="absolute inset-0 pointer-events-none flex items-center justify-center select-none"
+      className="pointer-events-none flex items-center justify-center select-none"
       style={{
         transform: `translate(${parallaxOffset.x * 0.3}px, ${parallaxOffset.y * 0.3}px)`,
         transition: 'transform 0.15s ease-out',
       }}
     >
       <svg
-        className="w-[124%] sm:w-[132%] h-[124%] sm:h-[132%] max-w-[700px] max-h-[700px] -translate-y-2"
+        className="w-[clamp(460px,46vw,620px)] h-[clamp(460px,46vw,620px)] max-w-[640px] max-h-[640px]"
         viewBox="0 0 540 540"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
