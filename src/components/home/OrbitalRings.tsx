@@ -111,17 +111,11 @@ export const OrbitalRings: React.FC<OrbitalRingsProps> = ({
         <circle
           cx="270"
           cy="270"
-          r="180"
-          stroke="rgba(54, 217, 245, 0.22)"
+          r="190"
+          stroke="rgba(216, 255, 88, 0.2)"
           strokeWidth="0.8"
-          strokeDasharray="2 6"
+          strokeDasharray="3 6"
         />
-
-        {/* Technical Coordinate Tick Marks */}
-        <line x1="270" y1="10" x2="270" y2="24" stroke="#36D9F5" strokeWidth="1.5" opacity="0.75" />
-        <line x1="270" y1="516" x2="270" y2="530" stroke="#36D9F5" strokeWidth="1.5" opacity="0.75" />
-        <line x1="10" y1="270" x2="24" y2="270" stroke="#35E6B0" strokeWidth="1.5" opacity="0.75" />
-        <line x1="516" y1="270" x2="530" y2="270" stroke="#35E6B0" strokeWidth="1.5" opacity="0.75" />
       </svg>
     </div>
   );

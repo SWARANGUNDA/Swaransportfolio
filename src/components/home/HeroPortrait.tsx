@@ -62,9 +62,9 @@ export const HeroPortrait: React.FC<HeroPortraitProps> = ({ onHoverStateChange }
       <div
         className="portrait-red-halo absolute rounded-full pointer-events-none z-[10]"
         style={{
-          width: 'clamp(360px, 36vw, 480px)',
-          height: 'clamp(360px, 36vw, 480px)',
-          top: '34%',
+          width: 'clamp(440px, 44vw, 580px)',
+          height: 'clamp(440px, 44vw, 580px)',
+          top: '36%',
           left: '50%',
           transform: `translate(calc(-50% + ${parallaxOffset.x * -0.2}px), calc(-50% + ${parallaxOffset.y * -0.2}px))`,
         }}
@@ -72,7 +72,7 @@ export const HeroPortrait: React.FC<HeroPortraitProps> = ({ onHoverStateChange }
 
       {/* LAYER 4: SVG Concentric Orbital Rings (Visible outside portrait silhouette) */}
       <div
-        className="absolute inset-0 pointer-events-none z-[12] flex items-center justify-center"
+        className="absolute inset-0 pointer-events-none z-[12] flex items-center justify-center -translate-y-4 sm:-translate-y-6"
         style={{
           transform: `translate(${parallaxOffset.x * 0.25}px, ${parallaxOffset.y * 0.25}px)`,
         }}

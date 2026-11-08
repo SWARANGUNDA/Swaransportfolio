@@ -107,7 +107,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenResume }) => {
           </div>
 
           {/* Right Column: ~48% (Enlarged Portrait with Red Halo, Rings & Badges) */}
-          <div className="w-full lg:w-[48%] z-[15] order-1 lg:order-2 flex items-center justify-center lg:justify-end">
+          <div className="w-full lg:w-[48%] z-[15] order-1 lg:order-2 flex items-center justify-center">
             <HeroPortrait />
           </div>
         </motion.div>

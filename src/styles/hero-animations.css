@@ -7,13 +7,13 @@
 .portrait-red-halo {
   background: radial-gradient(
     circle at 50% 50%,
-    rgba(235, 25, 35, 0.95) 0%,
-    rgba(215, 18, 28, 0.82) 28%,
-    rgba(175, 10, 18, 0.55) 50%,
-    rgba(110, 5, 12, 0.22) 70%,
-    transparent 84%
+    rgba(240, 25, 35, 0.95) 0%,
+    rgba(225, 20, 30, 0.85) 28%,
+    rgba(180, 10, 20, 0.6) 54%,
+    rgba(120, 5, 12, 0.25) 74%,
+    transparent 90%
   );
-  filter: blur(34px);
+  filter: blur(42px);
   will-change: transform, opacity;
   animation: halo-pulse 5s ease-in-out infinite alternate;
 }
