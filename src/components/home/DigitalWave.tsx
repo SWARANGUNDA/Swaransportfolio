@@ -171,7 +171,7 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
           const ridges = Math.cos(z * 0.44 + elapsedTime * 1.3) * 0.48;
           // 3. Dynamic ripple
           const ripple = Math.sin((x + z) * 0.3 + elapsedTime * 2.1) * 0.28;
-          // 4. Travelling luminous crest pulse (sweeping across horizon)
+          // 4. Travelling luminous crest pulse
           const crestPulse = Math.sin(x * 0.22 - elapsedTime * 2.6) * 0.25;
 
           // Interactive mouse wave lift
@@ -184,7 +184,7 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
           const totalHeight = swell + ridges + ripple + crestPulse + mouseLift;
           posArray[pIdx * 3 + 1] = totalHeight;
 
-          // Luminous crest highlight: As vertices rise to their peaks, boost electric lime & cyan glow
+          // Luminous crest highlight: Peak vertices dynamically glow with electric lime
           const peakRatio = Math.max(0, Math.min(1, (totalHeight - 0.2) / 0.8));
           if (peakRatio > 0) {
             colArray[pIdx * 3] = baseColors[pIdx * 3] * (1 - peakRatio) + colorLime.r * peakRatio;
@@ -243,6 +243,8 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
     >
       {/* Top Gradient Fade to soften the wave as it reaches content */}
       <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-midnight via-midnight/80 to-transparent pointer-events-none z-10" />
+      {/* Left Horizontal Gradient Fade to protect left text readability */}
+      <div className="absolute inset-y-0 left-0 w-2/5 sm:w-1/3 bg-gradient-to-r from-midnight via-midnight/60 to-transparent pointer-events-none z-10" />
       {/* Bottom Gradient Fade */}
       <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-midnight to-transparent pointer-events-none z-10" />
     </div>

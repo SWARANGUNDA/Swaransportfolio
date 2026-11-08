@@ -31,7 +31,7 @@ export const HeroActions: React.FC<HeroActionsProps> = ({
         </span>
       </motion.div>
 
-      {/* 2. Main Hero Headline (Disciplined line-height and letter-spacing - Issue 07) */}
+      {/* 2. Main Hero Headline */}
       <motion.div variants={fadeUpVariants} className="space-y-1 sm:space-y-1.5">
         <h1 className="font-editorial text-3xl sm:text-4xl md:text-5xl lg:text-[40px] xl:text-[50px] font-black tracking-tight leading-[1.06] uppercase">
           <span className="block text-slate-100">
@@ -43,7 +43,7 @@ export const HeroActions: React.FC<HeroActionsProps> = ({
         </h1>
       </motion.div>
 
-      {/* 3. Supporting Introduction (2-3 lines desktop) */}
+      {/* 3. Supporting Introduction */}
       <motion.p
         variants={fadeUpVariants}
         className="font-sans text-sm sm:text-base text-slate-300 font-normal leading-relaxed max-w-xl"
@@ -51,12 +51,12 @@ export const HeroActions: React.FC<HeroActionsProps> = ({
         I build intelligent systems, explore emerging technologies, and transform complex ideas into meaningful digital products.
       </motion.p>
 
-      {/* 4. Interactive CTA Action Buttons (Standardized 46px Height, font-mono bold text-xs, full pills - Issue 03) */}
+      {/* 4. Interactive CTA Action Buttons (Standardized 46px Height, font-mono bold text-xs) */}
       <motion.div
         variants={fadeUpVariants}
         className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-3.5 pt-1 flex-wrap xl:flex-nowrap"
       >
-        {/* Button 1: Explore My Work (Electric-Lime Filled Pill) */}
+        {/* Button 1: Explore My Work */}
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
@@ -68,7 +68,7 @@ export const HeroActions: React.FC<HeroActionsProps> = ({
           <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </motion.button>
 
-        {/* Button 2: Let's Connect (Matching 46px dark glass pill with subtle cyan border) */}
+        {/* Button 2: Let's Connect */}
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
@@ -79,7 +79,7 @@ export const HeroActions: React.FC<HeroActionsProps> = ({
           <span className="whitespace-nowrap">Let's Connect</span>
         </motion.button>
 
-        {/* Button 3: Download Resume (Matching 46px pill, same font & padding, cohesive family) */}
+        {/* Button 3: Download Resume */}
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
@@ -91,59 +91,61 @@ export const HeroActions: React.FC<HeroActionsProps> = ({
         </motion.button>
       </motion.div>
 
-      {/* 5. Technology Highlights Grid (3 Columns with generous breathing room - Issue 07) */}
+      {/* 5. Technology Highlights Grid (Protected with glass backing so wave dots never obscure text) */}
       <motion.div
         variants={fadeUpVariants}
-        className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 pt-3 border-t border-white/10 max-w-xl"
+        className="bg-midnight/70 backdrop-blur-md rounded-2xl p-3 sm:p-3.5 border border-white/5 max-w-xl"
       >
-        {/* Column 1: AI/ML */}
-        <div className="flex items-start gap-2.5">
-          <div className="p-1.5 rounded-lg bg-lime-brand/10 border border-lime-brand/25 text-lime-brand shrink-0">
-            <Cpu className="w-4 h-4" />
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-5">
+          {/* Column 1: AI/ML */}
+          <div className="flex items-start gap-2.5">
+            <div className="p-1.5 rounded-lg bg-lime-brand/10 border border-lime-brand/25 text-lime-brand shrink-0">
+              <Cpu className="w-4 h-4" />
+            </div>
+            <div>
+              <h4 className="text-xs sm:text-sm font-bold text-white font-editorial">
+                AI/ML
+              </h4>
+              <p className="text-[11px] font-mono text-slate-300 whitespace-nowrap font-medium">
+                Modeling · GenAI · NLP
+              </p>
+            </div>
           </div>
-          <div>
-            <h4 className="text-xs sm:text-sm font-bold text-white font-editorial">
-              AI/ML
-            </h4>
-            <p className="text-[11px] font-mono text-slate-400 whitespace-nowrap">
-              Modeling · GenAI · NLP
-            </p>
-          </div>
-        </div>
 
-        {/* Column 2: Full-Stack */}
-        <div className="flex items-start gap-2.5">
-          <div className="p-1.5 rounded-lg bg-cyan-400/10 border border-cyan-400/25 text-cyan-400 shrink-0">
-            <Layers className="w-4 h-4" />
+          {/* Column 2: Full-Stack */}
+          <div className="flex items-start gap-2.5">
+            <div className="p-1.5 rounded-lg bg-cyan-400/10 border border-cyan-400/25 text-cyan-400 shrink-0">
+              <Layers className="w-4 h-4" />
+            </div>
+            <div>
+              <h4 className="text-xs sm:text-sm font-bold text-white font-editorial">
+                Full-Stack
+              </h4>
+              <p className="text-[11px] font-mono text-slate-300 whitespace-nowrap font-medium">
+                React · Node · FastAPI
+              </p>
+            </div>
           </div>
-          <div>
-            <h4 className="text-xs sm:text-sm font-bold text-white font-editorial">
-              Full-Stack
-            </h4>
-            <p className="text-[11px] font-mono text-slate-400 whitespace-nowrap">
-              React · Node · FastAPI
-            </p>
-          </div>
-        </div>
 
-        {/* Column 3: Research */}
-        <div className="flex items-start gap-2.5">
-          <div className="p-1.5 rounded-lg bg-emerald-400/10 border border-emerald-400/25 text-emerald-400 shrink-0">
-            <FlaskConical className="w-4 h-4" />
-          </div>
-          <div>
-            <h4 className="text-xs sm:text-sm font-bold text-white font-editorial">
-              Research
-            </h4>
-            <p className="text-[11px] font-mono text-slate-400 whitespace-nowrap">
-              Healthcare AI · Security
-            </p>
+          {/* Column 3: Research */}
+          <div className="flex items-start gap-2.5">
+            <div className="p-1.5 rounded-lg bg-emerald-400/10 border border-emerald-400/25 text-emerald-400 shrink-0">
+              <FlaskConical className="w-4 h-4" />
+            </div>
+            <div>
+              <h4 className="text-xs sm:text-sm font-bold text-white font-editorial">
+                Research
+              </h4>
+              <p className="text-[11px] font-mono text-slate-300 whitespace-nowrap font-medium">
+                Healthcare AI · Security
+              </p>
+            </div>
           </div>
         </div>
       </motion.div>
 
-      {/* 6. Scroll Navigation Bar (Elevated and separated cleanly) */}
-      <motion.div variants={fadeUpVariants} className="pt-1">
+      {/* 6. Scroll Navigation Bar */}
+      <motion.div variants={fadeUpVariants} className="pt-0.5">
         <ScrollIndicator onScrollClick={onExploreWork} />
       </motion.div>
     </div>

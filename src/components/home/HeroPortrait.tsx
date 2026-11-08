@@ -51,20 +51,20 @@ export const HeroPortrait: React.FC<HeroPortraitProps> = ({ onHoverStateChange }
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      // Issue 02: Reposition portrait upward by -24px to -36px so shoulders and suit are visible
-      className="relative flex items-center justify-center select-none perspective-1200 z-[15] -translate-y-4 sm:-translate-y-6 lg:-translate-y-9"
+      // Lifted upward by -translate-y-8 to -translate-y-12 so shoulders and chest are framed above the wave
+      className="relative flex items-center justify-center select-none perspective-1200 z-[15] -translate-y-6 sm:-translate-y-8 lg:-translate-y-12"
       style={{
-        width: 'clamp(380px, 40vw, 600px)',
+        width: 'clamp(360px, 38vw, 560px)',
         maxWidth: '100%',
       }}
     >
-      {/* LAYER 3: Circular Crimson Ambient Halo (Centered behind head with 40px+ clearance below navbar - Issue 01) */}
+      {/* LAYER 3: Symmetrical Circular Crimson Ambient Halo (Centered directly behind the head - No rightward smear) */}
       <div
         className="portrait-red-halo absolute rounded-full pointer-events-none z-[10]"
         style={{
-          width: 'clamp(350px, 36vw, 500px)',
-          height: 'clamp(350px, 36vw, 500px)',
-          top: '20%',
+          width: 'clamp(340px, 35vw, 470px)',
+          height: 'clamp(340px, 35vw, 470px)',
+          top: '30%',
           left: '50%',
           transform: `translate(calc(-50% + ${parallaxOffset.x * -0.2}px), calc(-50% + ${parallaxOffset.y * -0.2}px))`,
         }}
@@ -80,7 +80,7 @@ export const HeroPortrait: React.FC<HeroPortraitProps> = ({ onHoverStateChange }
         <OrbitalRings parallaxOffset={parallaxOffset} />
       </div>
 
-      {/* LAYER 5: Authentic Portrait with Elliptical Radial Feathering (No clipping at top or shoulders) */}
+      {/* LAYER 5: Authentic Portrait with Elliptical Radial Feathering (Full shoulders, chest & suit visible) */}
       <motion.div
         style={{
           rotateX,
@@ -98,13 +98,12 @@ export const HeroPortrait: React.FC<HeroPortraitProps> = ({ onHoverStateChange }
             transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
             className="w-full h-auto object-contain object-top filter brightness-100 contrast-105 pointer-events-none"
             style={{
-              maxHeight: 'min(78vh, 640px)',
-              // Elliptical radial mask preserves 100% of full hair, face, neck, collar, both shoulders and suit chest
-              // while smoothly feathering all 4 square corners to 0
+              maxHeight: 'min(74vh, 600px)',
+              // Elliptical radial mask preserves 100% of hair, face, neck, collar, both broad shoulders and suit jacket
               WebkitMaskImage:
-                'radial-gradient(ellipse 65% 72% at 50% 40%, black 54%, rgba(0, 0, 0, 0.88) 64%, rgba(0, 0, 0, 0.25) 74%, transparent 80%)',
+                'radial-gradient(ellipse 68% 74% at 50% 38%, black 58%, rgba(0, 0, 0, 0.9) 68%, rgba(0, 0, 0, 0.2) 78%, transparent 84%)',
               maskImage:
-                'radial-gradient(ellipse 65% 72% at 50% 40%, black 54%, rgba(0, 0, 0, 0.88) 64%, rgba(0, 0, 0, 0.25) 74%, transparent 80%)',
+                'radial-gradient(ellipse 68% 74% at 50% 38%, black 58%, rgba(0, 0, 0, 0.9) 68%, rgba(0, 0, 0, 0.2) 78%, transparent 84%)',
               transform: `translate(${parallaxOffset.x * 0.12}px, ${parallaxOffset.y * 0.12}px)`,
             }}
           />
@@ -114,15 +113,15 @@ export const HeroPortrait: React.FC<HeroPortraitProps> = ({ onHoverStateChange }
             className="lighting-sweep"
             style={{
               WebkitMaskImage:
-                'radial-gradient(ellipse 65% 72% at 50% 40%, black 54%, rgba(0, 0, 0, 0.88) 64%, rgba(0, 0, 0, 0.25) 74%, transparent 80%)',
+                'radial-gradient(ellipse 68% 74% at 50% 38%, black 58%, rgba(0, 0, 0, 0.9) 68%, rgba(0, 0, 0, 0.2) 78%, transparent 84%)',
               maskImage:
-                'radial-gradient(ellipse 65% 72% at 50% 40%, black 54%, rgba(0, 0, 0, 0.88) 64%, rgba(0, 0, 0, 0.25) 74%, transparent 80%)',
+                'radial-gradient(ellipse 68% 74% at 50% 38%, black 58%, rgba(0, 0, 0, 0.9) 68%, rgba(0, 0, 0, 0.2) 78%, transparent 84%)',
             }}
           />
         </div>
       </motion.div>
 
-      {/* LAYER 6: Floating Technology Badges (Standardized dimensions in negative space) */}
+      {/* LAYER 6: Floating Technology Badges (Clean negative space positioning) */}
       <FloatingBadges parallaxOffset={parallaxOffset} />
     </div>
   );
