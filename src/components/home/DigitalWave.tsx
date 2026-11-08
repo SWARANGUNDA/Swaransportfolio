@@ -34,9 +34,9 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
       0.1,
       1000
     );
-    // Camera positioned to give pronounced sweeping 3D perspective across the bottom horizon
-    camera.position.set(0, 3.8, 7.6);
-    camera.lookAt(0, -0.35, 0);
+    // Lower camera angle to create dramatic, sweeping landscape perspective
+    camera.position.set(0, 3.2, 7.8);
+    camera.lookAt(0, 0.35, 0);
 
     // WebGL Renderer
     const renderer = new THREE.WebGLRenderer({
@@ -48,9 +48,9 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
     container.appendChild(renderer.domElement);
 
-    // Particle Grid Dimensions (Rich flowing terrain)
-    const cols = isMobile ? 54 : 88;
-    const rows = isMobile ? 28 : 46;
+    // Dense High-Definition Particle Grid (Luminous flowing ribbons)
+    const cols = isMobile ? 72 : 120;
+    const rows = isMobile ? 36 : 64;
     const numParticles = cols * rows;
 
     const positions = new Float32Array(numParticles * 3);
@@ -64,8 +64,8 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
     const colorLime = new THREE.Color('#D8FF58');
 
     // Populate initial grid coordinates
-    const spacingX = isMobile ? 0.35 : 0.27;
-    const spacingZ = isMobile ? 0.35 : 0.25;
+    const spacingX = isMobile ? 0.32 : 0.23;
+    const spacingZ = isMobile ? 0.32 : 0.22;
     const offsetX = (cols * spacingX) / 2;
     const offsetZ = (rows * spacingZ) / 2;
 
@@ -81,7 +81,7 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
         positions[idx * 3 + 2] = z;
         originalY[idx] = y;
 
-        // Tri-color gradient: Cyan to Emerald with Lime accents
+        // Tri-color gradient: Cyan on left, transitioning through Emerald into Lime highlights
         const t = (i / cols + j / rows) * 0.5;
         const particleColor = new THREE.Color();
         if (t < 0.45) {
@@ -114,8 +114,8 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
     if (ctx) {
       const gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
       gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
-      gradient.addColorStop(0.28, 'rgba(255, 255, 255, 0.95)');
-      gradient.addColorStop(0.65, 'rgba(255, 255, 255, 0.4)');
+      gradient.addColorStop(0.35, 'rgba(255, 255, 255, 0.98)');
+      gradient.addColorStop(0.7, 'rgba(255, 255, 255, 0.5)');
       gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
       ctx.fillStyle = gradient;
       ctx.beginPath();
@@ -126,17 +126,17 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
 
     // Points material with luminous additive blending
     const material = new THREE.PointsMaterial({
-      size: isMobile ? 0.16 : 0.14,
+      size: isMobile ? 0.18 : 0.16,
       vertexColors: true,
       map: texture,
       transparent: true,
-      opacity: 0.92,
+      opacity: 0.96,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
     });
 
     const particleSystem = new THREE.Points(geometry, material);
-    particleSystem.position.y = -1.35;
+    particleSystem.position.y = -0.7;
     scene.add(particleSystem);
 
     // Animation Loop
@@ -165,27 +165,27 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
           const x = posArray[pIdx * 3];
           const z = posArray[pIdx * 3 + 2];
 
-          // 1. Primary rolling swell
-          const swell = Math.sin(x * 0.38 + elapsedTime * 1.6) * 0.65;
-          // 2. Cross wave creating ridge peaks
-          const ridges = Math.cos(z * 0.44 + elapsedTime * 1.3) * 0.48;
-          // 3. Dynamic ripple
-          const ripple = Math.sin((x + z) * 0.3 + elapsedTime * 2.1) * 0.28;
-          // 4. Travelling luminous crest pulse
-          const crestPulse = Math.sin(x * 0.22 - elapsedTime * 2.6) * 0.25;
+          // 1. Primary dramatic rolling swell
+          const swell = Math.sin(x * 0.32 + elapsedTime * 1.3) * 1.25;
+          // 2. High cross-wave creating elevated ridges
+          const ridges = Math.cos(z * 0.36 + elapsedTime * 1.0) * 0.95;
+          // 3. Dynamic organic undulation
+          const ripple = Math.sin((x * 0.65 + z * 0.45) * 0.32 + elapsedTime * 1.6) * 0.5;
+          // 4. Travelling luminous crest surge
+          const crestPulse = Math.sin(x * 0.24 - elapsedTime * 2.0) * 0.38;
 
           // Interactive mouse wave lift
           const distToMouse = Math.hypot(
             x - mouseInfluenceX * 7.5,
             z - mouseInfluenceY * 3.8
           );
-          const mouseLift = Math.exp(-distToMouse * 0.42) * 0.6;
+          const mouseLift = Math.exp(-distToMouse * 0.42) * 0.8;
 
           const totalHeight = swell + ridges + ripple + crestPulse + mouseLift;
           posArray[pIdx * 3 + 1] = totalHeight;
 
           // Luminous crest highlight: Peak vertices dynamically glow with electric lime
-          const peakRatio = Math.max(0, Math.min(1, (totalHeight - 0.2) / 0.8));
+          const peakRatio = Math.max(0, Math.min(1, (totalHeight - 0.4) / 1.5));
           if (peakRatio > 0) {
             colArray[pIdx * 3] = baseColors[pIdx * 3] * (1 - peakRatio) + colorLime.r * peakRatio;
             colArray[pIdx * 3 + 1] = baseColors[pIdx * 3 + 1] * (1 - peakRatio) + colorLime.g * peakRatio;
@@ -239,14 +239,14 @@ export const DigitalWave: React.FC<DigitalWaveProps> = ({
   return (
     <div
       ref={containerRef}
-      className={`absolute inset-x-0 bottom-0 h-[280px] sm:h-[340px] lg:h-[400px] pointer-events-none select-none z-[2] overflow-hidden ${className}`}
+      className={`absolute inset-x-0 bottom-0 h-[380px] sm:h-[450px] lg:h-[520px] xl:h-[560px] pointer-events-none select-none z-[2] overflow-hidden ${className}`}
     >
-      {/* Top Gradient Fade to soften the wave as it reaches content */}
-      <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-midnight via-midnight/60 to-transparent pointer-events-none z-10" />
-      {/* Left Subtle Edge Fade */}
-      <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-midnight/60 to-transparent pointer-events-none z-10" />
+      {/* Soft top fade so luminous crest peaks remain brilliant */}
+      <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-midnight/70 to-transparent pointer-events-none z-10" />
+      {/* Subtle edge fade */}
+      <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-midnight/50 to-transparent pointer-events-none z-10" />
       {/* Bottom Gradient Fade */}
-      <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-midnight to-transparent pointer-events-none z-10" />
+      <div className="absolute inset-x-0 bottom-0 h-6 bg-gradient-to-t from-midnight to-transparent pointer-events-none z-10" />
     </div>
   );
 };
